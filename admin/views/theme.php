@@ -72,9 +72,9 @@ setlocale(LC_ALL,"es_ES");
 	</head>
 	<body class="app sidebar-mini">
 
-		<div id="global-loader">
+		<!-- <div id="global-loader">
 			<img src="assets/images/products/products/loader.png" class="loader-img floating" alt="">
-		</div>
+		</div> -->
 
 		<div class="page">
 			<div class="page-main  h-100">

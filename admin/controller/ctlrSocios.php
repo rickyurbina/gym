@@ -216,8 +216,12 @@ Class socios {
         if (isset($_GET['socio'])) {
             $idSocio = $_GET['socio'];
 
-            $respuesta = mdlSocios::mdlRegistrarMensualidad($idSocio);
+            $socio = mdlSocios::mdlBusca($idSocio, "socios");
 
+            echo $socio["nombres"]. " ". $socio["tipoSocio"];
+
+            //$respuesta = mdlSocios::mdlRegistrarMensualidad($idSocio);
+            $respuesta = "success";
             if ($respuesta === "success") {
                 echo '<script>  
                 Swal.fire({

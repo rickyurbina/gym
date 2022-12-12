@@ -52,17 +52,6 @@ require_once "admin/models/enlaces.php";
 				<?php
 					$ingreso = new Ingreso();
 					$ingreso -> ingresoController();
-
-					// $_SESSION["lostpass"] = true;
-					// if (isset($_SESSION["validar"]) && $_SESSION["validar"] == true){
-					// 	$modulos = new Enlaces();
-					// 	$modulos -> enlacesController();
-					// } else if (isset($_SESSION["lostpass"])){
-					// 	$modulos = new Enlaces();
-					// 	$modulos -> enlacesController();
-					// } else {
-					// 	include "modules/login.php";
-					// } 
 				?>
 				
 	            <div class="form-group">
