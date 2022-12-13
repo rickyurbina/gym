@@ -2,13 +2,7 @@
 Class socios {
 
     public static function ctrRegistra(){
-        if(isset($_POST["email"])){
-
-            // echo $_POST["nombres"]."<br>";
-            // echo $_POST["apellidos"]."<br>";
-            // echo $_POST["telefono"]."<br>";
-            // echo $_POST["tipoCliente"]."<br>";
-            // echo $_POST["fechaNacimiento"]."<br>";
+        if(isset($_POST["contacto"])){
 
             $original_date = $_POST["fechaNacimiento"];
             $timestamp = strtotime($original_date);
@@ -18,7 +12,7 @@ Class socios {
             $datos = array("nombres" => $_POST["nombres"],
                            "apellidos" => $_POST["apellidos"],
                            "telefono" => $_POST["telefono"],
-                           "email" => $_POST["email"],
+                           "contacto" => $_POST["contacto"],
                            "tipoSocio" => $_POST["tipoSocio"],
                            "fechaNacimiento" => $fechaNacimiento,
                            "fechaRegistro" => $fechaRegistro);
@@ -26,6 +20,49 @@ Class socios {
             $ingresa = mdlSocios::mdlRegistraSocio($datos);
 
             echo $ingresa;
+
+            if ($ingresa == "ok"){
+
+                    echo "<script>Swal.fire({
+                        title: 'Registro Exitoso',
+                        text: 'El nuevo socio ha sio registrado',
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok'
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location='index.php?page=socioList'
+                        }
+                      })
+                      </script>";
+            }
+            else{
+
+                echo "<script>Swal.fire({
+                    title: 'Error',
+                    text: 'No se pudo guardar la información',
+                    icon: 'danger',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location='index.php?page=socioList'
+                    }
+                  })
+                  </script>";
+        }
+            
+            
+        }
+    }
+
+    public static function ctrRegistraPrecio(){
+        if(isset($_POST["categoria"])){
+        
+            $datos = array("categoria" => $_POST["categoria"],
+                           "costo" => $_POST["costo"]);
+
+            $ingresa = mdlSocios::mdlRegistraPrecio($datos);
 
             if ($ingresa == "ok"){
 
@@ -74,7 +111,7 @@ Class socios {
                            "nombres" => $_POST["nombres"],
                            "apellidos" => $_POST["apellidos"],
                            "telefono" => $_POST["telefono"],
-                           "email" => $_POST["email"],
+                           "contacto" => $_POST["contacto"],
                            "tipoSocio" => $_POST["tipoSocio"],
                            "fechaNacimiento" => $fechaNacimiento);
 
@@ -124,7 +161,7 @@ Class socios {
             if ($item["tipoSocio"] == 1) $tipoSocio = '<td>Socio</td>';
             if ($item["tipoSocio"] == 2) $tipoSocio = '<td>Estudiante</td>';
             if ($item["tipoSocio"] == 3) $tipoSocio = '<td>Referido</td>';
-            $cumple = strftime("%d de %B", strtotime($item["fechaNacimiento"]));
+            $cumple = strftime("%d de %B de %Y", strtotime($item["fechaNacimiento"]));
             $registro = strftime("%d de %B de %Y", strtotime($item["fechaRegistro"]));
 
             echo '
@@ -140,6 +177,54 @@ Class socios {
                         <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-172px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
                             <a href="index.php?page=socioEdit&idEditar='.$item["idSocio"].'" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Editar </a>
                             <a href="index.php?page=socioList&idBorrar='.$item["idSocio"].'" class="dropdown-item"><i class="dropdown-icon fe fe-user-x"></i> Borrar </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>';
+		}
+	}
+
+    public static function ctrListaSociosInicio(){
+
+		$respuesta = mdlSocios::mdlListaSocio("socios");
+        date_default_timezone_set('UTC');
+        date_default_timezone_set("America/Chihuahua");
+        $hoy = date("d");
+        
+
+		foreach ($respuesta as $row => $item){
+            if ($item["tipoSocio"] == 1) $tipoSocio = '<td>Socio</td>';
+            if ($item["tipoSocio"] == 2) $tipoSocio = '<td>Estudiante</td>';
+            if ($item["tipoSocio"] == 3) $tipoSocio = '<td>Referido</td>';
+            $cumple = strftime("%d de %B", strtotime($item["fechaNacimiento"]));
+            $registro = strftime("%d de %B de %Y", strtotime($item["fechaRegistro"]));
+
+            // calculo de diferencia de las fechas
+            $fecha_inicial= $item["fechaUltimoPago"];
+            $fecha_final = date('Y-m-d'); 
+            
+            $dias = (strtotime($fecha_inicial)-strtotime($fecha_final))/86400;
+            $dias = abs($dias); $dias = floor($dias);
+            
+            if(is_null($fecha_inicial)) $dias_pasados = "sin pago";
+            else $dias_pasados = $dias+1;
+
+            if ($dias_pasados >= 31 ) $mens_dias = '<p class="text-primary">'.$dias_pasados.'</p>';
+            else $mens_dias = '<p class="text-green">'.$dias_pasados.'</p>';
+            //---------------------------------------------------------
+
+            echo '
+            <tr>
+                <td>'.$item["nombres"].' '.$item["apellidos"].'</td>
+                <td>'.$mens_dias.'</td>
+                <td>'.$item["contacto"].'</td>
+                <td> <a href="tel:'.$item["telefono"].'">'.$item["telefono"].'</a></td>
+                <td>'.$registro.'</td>
+                <td>
+                    <div class="item-action dropdown">
+                        <a href="javascript:void(0)" data-toggle="dropdown" class="icon" aria-expanded="false"><i class="fe fe-more-vertical fs-20 text-dark"></i></a>
+                        <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-172px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
+                            <a href="index.php?page=mensualidad&socio='.$item["idSocio"].'" class="dropdown-item"><i class="dropdown-icon fa fa-usd"></i> Mensualidad </a>
                         </div>
                     </div>
                 </td>
@@ -218,11 +303,15 @@ Class socios {
 
             $socio = mdlSocios::mdlBusca($idSocio, "socios");
 
-            echo $socio["nombres"]. " ". $socio["tipoSocio"];
+            $pago = $socio["tipoSocio"];
 
-            //$respuesta = mdlSocios::mdlRegistrarMensualidad($idSocio);
-            $respuesta = "success";
-            if ($respuesta === "success") {
+            $ultimo_pago = mdlSocios::mdlRegistraUltimoPago($idSocio);
+
+            $mensaualidad = mdlSocios::mdlRegistrarMensualidad($idSocio, $pago);
+
+
+
+            if ($ultimo_pago === "success" && $mensaualidad === "success") {
                 echo '<script>  
                 Swal.fire({
                     title: "Registrar mensualidad",
@@ -234,7 +323,7 @@ Class socios {
                     confirmButtonText: "Aceptar"
                   }).then((result) => {
                   
-                        window.location.href = "index.php?page=socioList";
+                        window.location.href = "index.php?page=inicio";
                     
                   })
                   </script>';
@@ -250,7 +339,7 @@ Class socios {
                     confirmButtonText: "Aceptar"
                   }).then((result) => {
                   
-                        window.location.href = "index.php?page=socioList";
+                        window.location.href = "index.php?page=inicio";
                     
                   })
                   </script>';

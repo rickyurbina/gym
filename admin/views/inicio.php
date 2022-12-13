@@ -71,6 +71,40 @@
 	</div>
 </div>
 
+<div class="row">
+<div class="col-md-12 col-lg-12">
+	<div class="card">
+		<div class="card-header">
+			<div class="card-title">Socios Registrados</div>
+
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table id="example2" class="hover table-bordered border-top-0 border-bottom-0" style="text-align: center;">
+					<thead>
+						<td>Nombre</td>
+						<td>Dias</td>
+						<td>Contacto</td>
+						<td>Teléfono</td>
+						<td>Fecha Registro</td>
+						<td>Opciones</td>
+					</thead>
+					<tbody>
+						<?php
+							$lista = new socios();
+							$lista -> ctrListaSociosInicio();
+							$lista -> ctrBorrarSocio();
+						?>
+						
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
 
 <div class="row">
 	<div class="col-xl-8 col-lg-12 col-md-12">

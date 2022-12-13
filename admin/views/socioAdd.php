@@ -18,27 +18,27 @@
                     <div class="col-sm-5 col-md-5">
                         <div class="form-group">
                             <label class="form-label">Nombres</label>
-                            <input type="text" class="form-control" name="nombres" placeholder="Juan" >
+                            <input type="text" class="form-control" name="nombres" placeholder="Juan" required>
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6">
                         <div class="form-group">
                             <label class="form-label">Apellidos</label>
-                            <input type="text" class="form-control" name="apellidos" placeholder="Perez García" >
+                            <input type="text" class="form-control" name="apellidos" placeholder="Perez García" required>
                         </div>
                     </div>
 
                     <div class="col-sm-6 col-md-5">
                         <div class="form-group">
                             <label class="form-label">Teléfono</label>
-                            <input type="text" class="form-control" name="telefono" maxlength="10" placeholder="6141234455" >
+                            <input type="text" class="form-control" name="telefono" maxlength="10" placeholder="6141234455" required>
                         </div>
                     </div>
 
                     <div class="col-sm-6 col-md-6">
                         <div class="form-group">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-control" name="email" placeholder="Email" >
+                            <label class="form-label">Contacto</label>
+                            <input type="text" class="form-control" name="contacto" placeholder="Persona a quien contactar" required>
                         </div>
                     </div>
 
@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="card-footer text-right">
-                <button type="submit" id="login" class="btn btn-primary">Registrar</button>
+                <button type="submit" class="btn btn-primary">Registrar</button>
             </div>
             <?php
                 $registro = new socios();

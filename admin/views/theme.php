@@ -12,7 +12,8 @@ if (isset($_GET["page"])){
 else{
 	$pagina = "";
 }
-setlocale(LC_ALL,"es_ES");    
+setlocale(LC_ALL,"es_ES");   
+
 ?>
 <!doctype html>
 <html lang="en" dir="ltr">
@@ -143,6 +144,10 @@ setlocale(LC_ALL,"es_ES");
 										$pagina == "productDel" ||
 										$pagina == "productEdit" || 
 										$pagina == "productList" || 
+										$pagina == "precioAdd" || 
+										$pagina == "precioDel" || 
+										$pagina == "precioEdit" || 
+										$pagina == "precioList" || 
 										$pagina == "logOut" ){
 												include "views/".$pagina.".php";
 								}
