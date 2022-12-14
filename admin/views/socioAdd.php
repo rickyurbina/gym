@@ -53,10 +53,10 @@
                         <div class="form-group">
                             <label class="form-label">Tipo Socio</label>
                             <select class="form-control custom-select select2" name="tipoSocio" >
-                                <option value="1">Socio</option>
-                                <option value="2">Estudiante</option>
-                                <option value="3">Referido</option>
-                                
+                                <?php
+                                    $controllerSocios = new socios();
+                                    $controllerSocios -> ctrSelectPrecios();
+                                ?>                                
                             </select>
                         </div>
                     </div>

@@ -19,8 +19,8 @@
                             <select name="selectProductos" id="selectProductos" class="form-control" onchange="agregarProducto(event)">
                                 <option value="">Seleccionar productos</option>
                                 <?php
-                                $controllerProductos = new productos();
-                                $controllerProductos->ctrSelectProductos();
+                                    $controllerProductos = new productos();
+                                    $controllerProductos->ctrSelectProductos();
                                 ?>
                             </select>
                         </div>
@@ -41,9 +41,8 @@
                             <select name="selectCliente" id="selectCliente" class="form-control">
                                 <option value="">Seleccionar cliente</option>
                                 <?php
-                                $controllerSocios = new socios();
-                                $controllerSocios -> ctrSelectSocios();
-                                // $controllerProductos->ctrSelectProductos();
+                                    $controllerSocios = new socios();
+                                    $controllerSocios -> ctrSelectSocios();
                                 ?>
                             </select>
                             <br>

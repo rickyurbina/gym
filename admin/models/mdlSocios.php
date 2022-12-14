@@ -70,6 +70,22 @@ class mdlSocios {
         }
     }
 
+    public static function mdlActualizaPrecio($datos){
+
+        $stmt = Conexion::conectar()->prepare("UPDATE `precios` SET `categoria`=:categoria, `costo`=:costo  WHERE id = :id;");
+
+        $stmt -> bindParam(":id", $datos["id"], PDO::PARAM_INT);
+        $stmt -> bindParam(":categoria", $datos["categoria"], PDO::PARAM_STR);
+        $stmt -> bindParam(":costo", $datos["costo"], PDO::PARAM_INT);
+         
+        if ($stmt -> execute()){
+            return "ok";
+        }
+        else {
+            return "error";
+        }
+    }
+
     	#LISTA Socios
 	#-------------------------------------
 
@@ -83,6 +99,12 @@ class mdlSocios {
 
 		//$stmt->close();
 
+	}
+
+    public static function mdlListaPrecios($tabla){
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
+		$stmt->execute();
+		return $stmt->fetchAll();
 	}
 
 
@@ -101,11 +123,34 @@ class mdlSocios {
 		//$stmt->close();
 	}
 
+    public static function mdlBuscaPrecio($usuario, $tabla){
+
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE id = :id");
+
+		$stmt->bindParam(":id", $usuario, PDO::PARAM_INT);
+
+		$stmt -> execute();
+		return $stmt -> fetch();
+
+		//$stmt->close();
+	}
+
 
     	#BORRAR Socio
 	#-------------------------------------
 	public static function mdlBorrarSocio($datosModel,$tabla){
 		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE idSocio = :id");
+		$stmt -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
+		if ($stmt->execute()){
+			return "success";
+		} else {
+			return "error";
+		}
+		//$stmt -> close();
+	}
+
+    public static function mdlBorrarPrecio($datosModel,$tabla){
+		$stmt = Conexion::conectar()->prepare("DELETE FROM $tabla WHERE id = :id");
 		$stmt -> bindPARAM(":id",$datosModel, PDO::PARAM_INT);
 		if ($stmt->execute()){
 			return "success";
@@ -155,6 +200,26 @@ class mdlSocios {
         $statement -> execute();
 
         return $statement -> fetchAll();
+    }
+
+
+    public static function mdlRepoMensualidades(){
+
+        $stmt = Conexion::conectar()->prepare("SELECT sum(`cantidad`) as mensualidad, COUNT(`id`) as socios, (SELECT COUNT(`idSocio`) FROM `socios`) as totalSocios FROM `pagos` 
+                                                WHERE MONTH(`fecha`) = MONTH(CURDATE());");
+         
+        $stmt -> execute();
+        return $stmt->fetch();
+
+    }
+
+    public static function mdlCumples(){
+
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM `socios` WHERE MONTH(`fechaNacimiento`) = MONTH(CURDATE()) ORDER BY `fechaNacimiento`;");
+         
+        $stmt -> execute();
+        return $stmt->fetchAll();
+
     }
 
 }// Class

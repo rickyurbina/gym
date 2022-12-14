@@ -56,6 +56,98 @@ Class socios {
         }
     }
 
+    public static function ctrCumpleanios(){
+        
+        $cumples = mdlSocios::mdlCumples();
+        echo'
+        <div class="col-xl-4 col-lg-6 col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Cumpleaños del Mes</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="item3-medias">
+                            
+        ';
+
+        foreach ($cumples as $cumple){
+            $original_date = $cumple["fechaNacimiento"];
+            $timestamp = strtotime($original_date);
+            $fechaNacimiento = date("d-M", $timestamp);
+
+        echo '
+            <div class="media meida-md mt-0 pb-2">
+                <div class="media-body">
+                    <h6 class="media-heading font-weight-bold text-uppercase">'.$cumple["nombres"].' '.$cumple["apellidos"].'</h6>
+                    <ul class="mb-0 item3-lists d-flex">
+                        <li>
+                            <i class="icon icon-calendar"></i>'.$fechaNacimiento.'
+                        </li>
+                    </ul>
+                </div>
+            </div><br>';
+
+        }
+        echo '
+                </div>
+            </div>
+        </div>
+        </div>
+        ';
+    }
+
+    public static function ctrRepoMensualidades(){
+        $mensualidades = mdlSocios::mdlRepoMensualidades();
+
+        # ----------------------------------------------
+        # Funcion para redondear el porcentaje de 5 en 5 
+        # ----------------------------------------------
+
+        $pagados = $mensualidades["socios"];
+        $totalSocios = $mensualidades["totalSocios"];
+
+        $porcentajeSocios = ($pagados / $totalSocios)*100;
+        $compara = $porcentajeSocios%5;
+        
+        while ($compara != 0 ){  
+            $pagados ++;        
+            $porcentajeSocios = ($pagados / $totalSocios)*100;
+            $compara = $porcentajeSocios%5;
+        }
+        echo '
+
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 ">
+            <div class="card overflow-hidden">
+                <div class="card-header">
+                    <h3 class="card-title">Mensualidad</h3>
+                </div>
+                <div class="card-body ">
+                    <h5 class="">Cobrado</h5>
+                    <h2 class="text-dark  mt-0 ">$ '.$mensualidades["mensualidad"].'</h2>
+                    <div class="progress progress-sm mt-0 mb-2">
+                        <div class="progress-bar bg-primary w-'.$porcentajeSocios.'" role="progressbar"></div>
+                    </div>
+                    <div class=""><i class="fa fa-caret-up text-green"></i>'.$porcentajeSocios.'% de socios</div>
+                </div>
+            </div>
+        </div>';
+
+        echo '
+        <div class=" col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="card overflow-hidden">
+                <div class="card-header">
+                    <h3 class="card-title">Socios</h3>
+                    <div class="card-options"> <a class="btn btn-sm btn-secondary" href="index.php?page=socioList">Ver</a> </div>
+                </div>
+                <div class="card-body ">
+                    <h5 class="">Total registrados</h5>
+                    <h2 class="text-dark  mt-0 ">'.$totalSocios.'</h2>
+                </div>
+            </div>
+        </div>
+        ';
+    }
+
     public static function ctrRegistraPrecio(){
         if(isset($_POST["categoria"])){
         
@@ -68,13 +160,13 @@ Class socios {
 
                     echo "<script>Swal.fire({
                         title: 'Registro Exitoso',
-                        text: 'El nuevo socio ha sio registrado',
+                        text: 'El nuevo precio ha sio registrado',
                         icon: 'success',
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'Ok'
                       }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location='index.php?page=socioList'
+                            window.location='index.php?page=precioList'
                         }
                       })
                       </script>";
@@ -89,7 +181,7 @@ Class socios {
                     confirmButtonText: 'Ok'
                   }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location='index.php?page=socioList'
+                        window.location='index.php?page=precioList'
                     }
                   })
                   </script>";
@@ -150,6 +242,49 @@ Class socios {
         }
     }
 
+    public static function ctrActualizaPrecio(){
+        if(isset($_POST["btnActualiza"])){
+
+       
+            $datos = array("id" => $_POST["id"],
+                           "categoria" => $_POST["categoria"],
+                           "costo" => $_POST["costo"]);
+
+            $actualiza = mdlSocios::mdlActualizaPrecio($datos);
+
+            if ($actualiza == "ok"){
+
+                echo "<script>Swal.fire({
+                    title: 'Actualizado!',
+                    text: 'La información se actualizó correctamente',
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location='index.php?page=precioList'
+                    }
+                    })
+                    </script>";
+            }else{
+                echo "<script>Swal.fire({
+                    title: 'Error!',
+                    text: 'No se logró actualizar La información',
+                    icon: 'error',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location='index.php?page=precioList'
+                    }
+                  })
+                  </script>";
+
+            }
+            
+        }
+    }
+
 
     #  Lista todos los usuarios disponibles en la tabla que recibe como parametro
     #------------------------------------------------------------------------------------------------
@@ -177,6 +312,34 @@ Class socios {
                         <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-172px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
                             <a href="index.php?page=socioEdit&idEditar='.$item["idSocio"].'" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Editar </a>
                             <a href="index.php?page=socioList&idBorrar='.$item["idSocio"].'" class="dropdown-item"><i class="dropdown-icon fe fe-user-x"></i> Borrar </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>';
+		}
+	}
+
+    public static function ctrListaPrecios(){
+
+		$respuesta = mdlSocios::mdlListaPrecios("precios");
+
+		foreach ($respuesta as $row => $item){
+            // if ($item["tipoSocio"] == 1) $tipoSocio = '<td>Socio</td>';
+            // if ($item["tipoSocio"] == 2) $tipoSocio = '<td>Estudiante</td>';
+            // if ($item["tipoSocio"] == 3) $tipoSocio = '<td>Referido</td>';
+            // $cumple = strftime("%d de %B de %Y", strtotime($item["fechaNacimiento"]));
+            // $registro = strftime("%d de %B de %Y", strtotime($item["fechaRegistro"]));
+
+            echo '
+            <tr>
+                <td>'.$item["categoria"].'</td>
+                <td>'.$item["costo"].'</td>
+                <td>
+                    <div class="item-action dropdown">
+                        <a href="javascript:void(0)" data-toggle="dropdown" class="icon" aria-expanded="false"><i class="fe fe-more-vertical fs-20 text-dark"></i></a>
+                        <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-172px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
+                            <a href="index.php?page=precioEdit&idEditar='.$item["id"].'" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Editar </a>
+                            <a href="index.php?page=precioList&idBorrar='.$item["id"].'" class="dropdown-item"><i class="dropdown-icon fe fe-user-x"></i> Borrar </a>
                         </div>
                     </div>
                 </td>
@@ -249,6 +412,26 @@ Class socios {
               }).then((result) => {
                 if (result.isConfirmed) {
                     window.location="index.php?page=socioDel&idBorrar="+'.$_GET["idBorrar"].'
+                }
+              })
+              </script>';
+		}
+	}
+
+    public static function ctrBorrarPrecio(){
+		if (isset($_GET['idBorrar'])){
+            echo '<script>  
+            Swal.fire({
+                title: "¿Está seguro?",
+                text: "¡Esto no se podrá recuperar!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "¡Si, borrar!"
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location="index.php?page=precioDel&idBorrar="+'.$_GET["idBorrar"].'
                 }
               })
               </script>';
@@ -352,6 +535,14 @@ Class socios {
 
         foreach($respuesta as $socio) {
             echo '<option value="' . $socio['idSocio'] . '">' . $socio['nombres'] . ' ' . $socio['apellidos'] . '</option>';
+        }
+    }
+
+    public function ctrSelectPrecios() {
+        $respuesta = mdlSocios::mdlListaSocio("precios");
+
+        foreach($respuesta as $precio) {
+            echo '<option value="' . $precio['costo'] . '">' . $precio['categoria'] . '</option>';
         }
     }
 
