@@ -59,9 +59,10 @@
                         <div class="form-group">
                             <label class="form-label">Tipo Cliente</label>
                             <select class="form-control custom-select select2" name="tipoSocio" >
-                                <option <?php if ($busca['tipoSocio'] == "1") echo "selected"; ?> value="1">Socio</option>
-                                <option <?php if ($busca['tipoSocio'] == "2") echo "selected"; ?> value="2">Estudiante</option>
-                                <option <?php if ($busca['tipoSocio'] == "3") echo "selected"; ?> value="3">Referido</option>                                
+                                <?php
+                                    $controllerSocios = new socios();
+                                    $controllerSocios -> ctrSelectedPrecios($busca['tipoSocio']);
+                                ?>                                
                             </select>
                         </div>
                     </div>

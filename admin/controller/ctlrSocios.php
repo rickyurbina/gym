@@ -19,8 +19,6 @@ Class socios {
 
             $ingresa = mdlSocios::mdlRegistraSocio($datos);
 
-            echo $ingresa;
-
             if ($ingresa == "ok"){
 
                     echo "<script>Swal.fire({
@@ -290,7 +288,7 @@ Class socios {
     #------------------------------------------------------------------------------------------------
     public static function ctrListaSocios(){
 
-		$respuesta = mdlSocios::mdlListaSocio("socios");
+		$respuesta = mdlSocios::mdlLista("socios");
 
 		foreach ($respuesta as $row => $item){
             if ($item["tipoSocio"] == 1) $tipoSocio = '<td>Socio</td>';
@@ -321,7 +319,7 @@ Class socios {
 
     public static function ctrListaPrecios(){
 
-		$respuesta = mdlSocios::mdlListaPrecios("precios");
+		$respuesta = mdlSocios::mdlLista("precios");
 
 		foreach ($respuesta as $row => $item){
             // if ($item["tipoSocio"] == 1) $tipoSocio = '<td>Socio</td>';
@@ -349,7 +347,7 @@ Class socios {
 
     public static function ctrListaSociosInicio(){
 
-		$respuesta = mdlSocios::mdlListaSocio("socios");
+		$respuesta = mdlSocios::mdlLista("socios");
         date_default_timezone_set('UTC');
         date_default_timezone_set("America/Chihuahua");
         $hoy = date("d");
@@ -484,9 +482,9 @@ Class socios {
         if (isset($_GET['socio'])) {
             $idSocio = $_GET['socio'];
 
-            $socio = mdlSocios::mdlBusca($idSocio, "socios");
+            $socio = mdlSocios::mdlBuscaPrecio($idSocio);
 
-            $pago = $socio["tipoSocio"];
+            $pago = $socio["costo"];
 
             $ultimo_pago = mdlSocios::mdlRegistraUltimoPago($idSocio);
 
@@ -531,7 +529,7 @@ Class socios {
     }
 
     public function ctrSelectSocios() {
-        $respuesta = mdlSocios::mdlListaSocio("socios");
+        $respuesta = mdlSocios::mdlLista("socios");
 
         foreach($respuesta as $socio) {
             echo '<option value="' . $socio['idSocio'] . '">' . $socio['nombres'] . ' ' . $socio['apellidos'] . '</option>';
@@ -539,10 +537,22 @@ Class socios {
     }
 
     public function ctrSelectPrecios() {
-        $respuesta = mdlSocios::mdlListaSocio("precios");
+        $respuesta = mdlSocios::mdlLista("precios");
 
         foreach($respuesta as $precio) {
-            echo '<option value="' . $precio['costo'] . '">' . $precio['categoria'] . '</option>';
+            echo '<option value="' . $precio['categoria'] . '">' . $precio['categoria'] . '</option>';
+        }
+    }
+
+    public function ctrSelectedPrecios($tipoSocio) {
+
+        $respuesta = mdlSocios::mdlLista("precios");
+
+        foreach($respuesta as $precio) {
+            if ($precio["categoria"] == $tipoSocio)
+                echo '<option value="' . $precio['categoria'] . '" selected>' . $precio['categoria'] . '</option>';
+            else
+                echo '<option value="' . $precio['categoria'] . '">' . $precio['categoria'] . '</option>';
         }
     }
 

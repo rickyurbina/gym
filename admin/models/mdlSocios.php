@@ -86,10 +86,10 @@ class mdlSocios {
         }
     }
 
-    	#LISTA Socios
-	#-------------------------------------
+    	#LISTA todos los registros de una tabla
+	#--------------------------------------------
 
-	public static function mdlListaSocio($tabla){
+	public static function mdlLista($tabla){
 
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
 		$stmt->execute();
@@ -123,9 +123,13 @@ class mdlSocios {
 		//$stmt->close();
 	}
 
-    public static function mdlBuscaPrecio($usuario, $tabla){
+    public static function mdlBuscaPrecio($usuario){
 
-		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE id = :id");
+		$stmt = Conexion::conectar()->prepare("SELECT p.costo
+                                                FROM precios as p
+                                                INNER JOIN socios as s
+                                                ON p.categoria = s.tipoSocio
+                                                WHERE s.idSocio = :id");
 
 		$stmt->bindParam(":id", $usuario, PDO::PARAM_INT);
 
