@@ -484,8 +484,6 @@ Class socios {
 
             $socio = mdlSocios::mdlBuscaPrecio($idSocio);
 
-            var_dump($socio);
-
             $pago = $socio["costo"];
 
             $ultimo_pago = mdlSocios::mdlRegistraUltimoPago($idSocio);
