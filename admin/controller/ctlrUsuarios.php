@@ -96,6 +96,9 @@ Class usuarios {
             }
             
         }
+        if (isset($_POST["btnCancel"])) {
+            echo '<script>window.location="index.php?page=userList";</script>';
+        }
     }
 
 

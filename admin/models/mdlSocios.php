@@ -123,6 +123,15 @@ class mdlSocios {
 		//$stmt->close();
 	}
 
+    public static function mdlBuscaPrecioEditar($precio){
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM `precios` WHERE id = :id");
+
+		$stmt->bindParam(":id", $precio, PDO::PARAM_INT);
+
+		$stmt -> execute();
+		return $stmt -> fetch();
+    }
+
     public static function mdlBuscaPrecio($usuario){
 
 		$stmt = Conexion::conectar()->prepare("SELECT p.costo

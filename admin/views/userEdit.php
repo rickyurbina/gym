@@ -90,7 +90,7 @@
             </div>
             <div class="card-footer text-right">
                 <input type="text" name="userId" class="form-control" value="<?php echo $usuario; ?>" hidden />
-                <a href="index.php?page=userList"><button name="btnCancel" class="btn btn-warning">Cancelar</button></a>
+                <button name="btnCancel" class="btn btn-warning">Cancelar</button>
                 <button type="submit" name="btnActualiza" id="login" class="btn btn-primary">Actualizar</button>
             </div>
             <?php

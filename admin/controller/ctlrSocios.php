@@ -238,6 +238,9 @@ Class socios {
             }
             
         }
+        if (isset($_POST["btnCancel"])) {
+            echo '<script>window.location="index.php?page=socioList";</script>';
+        }
     }
 
     public static function ctrActualizaPrecio(){
@@ -280,6 +283,9 @@ Class socios {
 
             }
             
+        }
+        if (isset($_POST["btnCancel"])) {
+            echo '<script>window.location="index.php?page=precioList";</script>';
         }
     }
 
@@ -495,7 +501,7 @@ Class socios {
             if ($ultimo_pago === "success" && $mensaualidad === "success") {
                 echo '<script>  
                 Swal.fire({
-                    title: "Registrar mensualidad",
+                    title: "Pago Registrado",
                     text: "La mensualidad fue registrada exitosamente",
                     icon: "success",
                     showCancelButton: false,
@@ -511,7 +517,7 @@ Class socios {
             } else {
                 echo '<script>  
                 Swal.fire({
-                    title: "Registrar mensualidad",
+                    title: "Error",
                     text: "La mensualidad no se pudo registrar",
                     icon: "error",
                     showCancelButton: false,

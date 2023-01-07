@@ -1,7 +1,7 @@
 <?php
 
     $usuario = $_GET["idEditar"];
-    $busca = mdlSocios::mdlBuscaPrecio($usuario, "precios");
+    $busca = mdlSocios::mdlBuscaPrecioEditar($usuario);
 
 ?>
 
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="card-footer text-right">
-                <button type="submit" name="btnCancelar" id="login" class="btn btn-warning">Actualizar</button>
+                <button name="btnCancel" id="login" class="btn btn-warning">Cancelar</button>
                 <button type="submit" name="btnActualiza" id="login" class="btn btn-primary">Actualizar</button>
             </div>
             <?php
