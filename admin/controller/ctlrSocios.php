@@ -299,8 +299,8 @@ Class socios {
 
             echo '
             <tr>
-                <td>'.$item["nombres"].' '.$item["apellidos"].'</td>'
-                .$tipoSocio.'
+                <td>'.$item["nombres"].' '.$item["apellidos"].'</td>
+                <td>'.$item["tipoSocio"].'</td>
                 <td>'.$item["telefono"].'</td>
                 <td>'.$registro.'</td>
                 <td>'.$cumple.'</td>
@@ -483,6 +483,8 @@ Class socios {
             $idSocio = $_GET['socio'];
 
             $socio = mdlSocios::mdlBuscaPrecio($idSocio);
+
+            var_dump($socio);
 
             $pago = $socio["costo"];
 
