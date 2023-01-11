@@ -46,10 +46,10 @@
                                 ?>
                             </select>
                             <br>
-                            <button class="btn btn-secondary" type="button" id="toggleButton">Agregar cliente</button>
+                            <!-- <button class="btn btn-secondary" type="button" id="toggleButton">Agregar cliente</button> -->
                             <br>
                             <br>
-                            <div id="containerAgregar" class="row containerAgregar">
+                            <!-- <div id="containerAgregar" class="row containerAgregar">
                                 <div class="col">
                                     <h4>Agregar cliente</h4>
                                 </div>
@@ -101,7 +101,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-6" style="display: flex; justify-content: end">

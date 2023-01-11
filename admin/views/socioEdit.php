@@ -48,10 +48,48 @@
                         </div>
                     </div>
 
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <label class="form-label">Fecha Nacimiento</label>
-                            <input class="form-control fc-datepicker" placeholder="MM/DD/YYYY" type="text" name="fechaNacimiento" value="<?php echo $busca['fechaNacimiento']; ?>">
+                    <?php
+                    $fechaN=$busca['fechaNacimiento'];
+                    $fecha = strtotime($fechaN);
+                    ?>
+
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group m-0">
+                            <label class="form-label" style="margin-left:1px">Fecha de Nacimiento</label>
+                            <div class="row gutters-xs">
+                                <div class="col-md-4 col-sm-12">
+                                    <select name="dateDia" class="form-control">
+
+                                        <option value=""><?php echo date("d", $fecha); ?></option>
+                                        <?php
+                                        for ($x = 1; $x <= 31; $x++) {
+                                            echo '<option value="' .  $x . '">' .  $x . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <select name="dateMes" class="form-control">
+                                        <option value=""><?php echo date("m", $fecha); ?></option>
+                                        <?php
+                                        for ($x = 1; $x <= 12; $x++) {
+                                            echo '<option value="' .  $x . '">' .  $x . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <select name="dateAnio" class="form-control">
+                                        <option value=""><?php echo date("Y", $fecha); ?></option>
+                                        <?php
+                                        $a = date("Y");
+                                        for ($x = 0; $x <= 100; $x++) {
+                                            echo '<option value="' . $a - $x . '">' . $a - $x . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     

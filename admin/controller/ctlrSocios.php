@@ -4,10 +4,12 @@ Class socios {
     public static function ctrRegistra(){
         if(isset($_POST["contacto"])){
 
-            $original_date = $_POST["fechaNacimiento"];
-            $timestamp = strtotime($original_date);
-            $fechaNacimiento = date("Y-m-d", $timestamp);
-            $fechaRegistro = date('Y-m-d');
+            // $original_date = $_POST["fechaNacimiento"];
+            // $timestamp = strtotime($original_date);
+            // $fechaNacimiento = date("Y-m-d", $timestamp);
+             $fechaRegistro = date('Y-m-d');
+
+            $fechaNacimiento = $_POST["dateAnio"] . "-" . $_POST["dateMes"] . "-" . $_POST["dateDia"];
         
             $datos = array("nombres" => $_POST["nombres"],
                            "apellidos" => $_POST["apellidos"],
@@ -193,9 +195,7 @@ Class socios {
     public static function ctrActualiza(){
         if(isset($_POST["btnActualiza"])){
 
-            $original_date = $_POST["fechaNacimiento"];
-            $timestamp = strtotime($original_date);
-            $fechaNacimiento = date("Y-m-d", $timestamp);
+            $fechaNacimiento = $_POST["dateAnio"] . "-" . $_POST["dateMes"] . "-" . $_POST["dateDia"];
         
             $datos = array("socioId" => $_POST["socioId"],
                            "nombres" => $_POST["nombres"],

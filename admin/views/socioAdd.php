@@ -42,21 +42,53 @@
                         </div>
                     </div>
 
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <label class="form-label">Fecha Nacimiento</label>
-                            <input class="form-control fc-datepicker" placeholder="MM/DD/YYYY" type="text" name="fechaNacimiento">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group m-0">
+                            <label class="form-label" style="margin-left:1px">Fecha de Nacimiento</label>
+                            <div class="row gutters-xs">
+                                <div class="col-md-4 col-sm-12">
+                                    <select name="dateDia" class="form-control">
+                                        <option value="">Día</option>
+                                        <?php
+                                        for ($x = 1; $x <= 31; $x++) {
+                                            echo '<option value="' .  $x . '">' .  $x . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <select name="dateMes" class="form-control">
+                                        <option value="">Mes</option>
+                                        <?php
+                                        for ($x = 1; $x <= 12; $x++) {
+                                            echo '<option value="' .  $x . '">' .  $x . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <select name="dateAnio" class="form-control">
+                                        <option value="">Año</option>
+                                        <?php
+                                        $a = date("Y");
+                                        for ($x = 0; $x <= 100; $x++) {
+                                            echo '<option value="' . $a - $x . '">' . $a - $x . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="form-label">Tipo Socio</label>
-                            <select class="form-control custom-select select2" name="tipoSocio" >
+                            <select class="form-control custom-select select2" name="tipoSocio">
                                 <?php
-                                    $controllerSocios = new socios();
-                                    $controllerSocios -> ctrSelectPrecios();
-                                ?>                                
+                                $controllerSocios = new socios();
+                                $controllerSocios->ctrSelectPrecios();
+                                ?>
                             </select>
                         </div>
                     </div>
@@ -67,8 +99,8 @@
                 <button type="submit" class="btn btn-primary">Registrar</button>
             </div>
             <?php
-                $registro = new socios();
-                $registro -> ctrRegistra();
+            $registro = new socios();
+            $registro->ctrRegistra();
             ?>
         </form>
     </div>
