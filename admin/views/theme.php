@@ -148,6 +148,11 @@ setlocale(LC_ALL,"es_ES");
 										$pagina == "precioDel" || 
 										$pagina == "precioEdit" || 
 										$pagina == "precioList" || 
+										$pagina == "grupoAdd" || 
+										$pagina == "grupoEdit" || 
+										$pagina == "grupoDel" || 
+										$pagina == "grupoList" || 
+										$pagina == "tomaAsistencia"||
 										$pagina == "logOut" ){
 												include "views/".$pagina.".php";
 								}

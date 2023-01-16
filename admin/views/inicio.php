@@ -16,18 +16,18 @@
 		<div class="card">
 			<div class="card-header">
 				<div class="card-title">Reporte de Pagos</div>
-
+				<div class="card-options"> <a class="btn btn-vk" href="index.php?page=tomaAsistencia">Asistencia</a></div>
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
 					<table id="example2" class="hover table-bordered border-top-0 border-bottom-0" style="text-align: center;">
 						<thead>
+							<td>Opciones</td>	
 							<td>Nombre</td>
 							<td>Dias</td>
 							<td>Contacto</td>
+							<td>Grupo</td>
 							<td>Teléfono</td>
-							<td>Fecha Registro</td>
-							<td>Opciones</td>
 						</thead>
 						<tbody>
 							<?php

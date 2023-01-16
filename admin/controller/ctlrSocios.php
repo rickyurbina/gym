@@ -1,29 +1,31 @@
 <?php
-Class socios {
+class socios
+{
 
-    public static function ctrRegistra(){
-        if(isset($_POST["contacto"])){
+    public static function ctrRegistra()
+    {
+        if (isset($_POST["telefono"])) {
 
-            // $original_date = $_POST["fechaNacimiento"];
-            // $timestamp = strtotime($original_date);
-            // $fechaNacimiento = date("Y-m-d", $timestamp);
-             $fechaRegistro = date('Y-m-d');
+            $fechaRegistro = date('Y-m-d');
 
             $fechaNacimiento = $_POST["dateAnio"] . "-" . $_POST["dateMes"] . "-" . $_POST["dateDia"];
-        
-            $datos = array("nombres" => $_POST["nombres"],
-                           "apellidos" => $_POST["apellidos"],
-                           "telefono" => $_POST["telefono"],
-                           "contacto" => $_POST["contacto"],
-                           "tipoSocio" => $_POST["tipoSocio"],
-                           "fechaNacimiento" => $fechaNacimiento,
-                           "fechaRegistro" => $fechaRegistro);
+
+            $datos = array(
+                "nombres" => $_POST["nombres"],
+                "apellidos" => $_POST["apellidos"],
+                "telefono" => $_POST["telefono"],
+                "contacto" => $_POST["contacto"],
+                "nombreG" => $_POST["nombreG"],
+                "tipoSocio" => $_POST["tipoSocio"],
+                "fechaNacimiento" => $fechaNacimiento,
+                "fechaRegistro" => $fechaRegistro
+            );
 
             $ingresa = mdlSocios::mdlRegistraSocio($datos);
 
-            if ($ingresa == "ok"){
+            if ($ingresa == "ok") {
 
-                    echo "<script>Swal.fire({
+                echo "<script>Swal.fire({
                         title: 'Registro Exitoso',
                         text: 'El nuevo socio ha sio registrado',
                         icon: 'success',
@@ -35,8 +37,7 @@ Class socios {
                         }
                       })
                       </script>";
-            }
-            else{
+            } else {
 
                 echo "<script>Swal.fire({
                     title: 'Error',
@@ -50,16 +51,15 @@ Class socios {
                     }
                   })
                   </script>";
-        }
-            
-            
+            }
         }
     }
 
-    public static function ctrCumpleanios(){
-        
+    public static function ctrCumpleanios()
+    {
+
         $cumples = mdlSocios::mdlCumples();
-        echo'
+        echo '
         <div class="col-xl-4 col-lg-6 col-md-12">
                 <div class="card">
                     <div class="card-header">
@@ -70,23 +70,22 @@ Class socios {
                             
         ';
 
-        foreach ($cumples as $cumple){
+        foreach ($cumples as $cumple) {
             $original_date = $cumple["fechaNacimiento"];
             $timestamp = strtotime($original_date);
             $fechaNacimiento = date("d-M", $timestamp);
 
-        echo '
+            echo '
             <div class="media meida-md mt-0 pb-2">
                 <div class="media-body">
-                    <h6 class="media-heading font-weight-bold text-uppercase">'.$cumple["nombres"].' '.$cumple["apellidos"].'</h6>
+                    <h6 class="media-heading font-weight-bold text-uppercase">' . $cumple["nombres"] . ' ' . $cumple["apellidos"] . '</h6>
                     <ul class="mb-0 item3-lists d-flex">
                         <li>
-                            <i class="icon icon-calendar"></i>'.$fechaNacimiento.'
+                            <i class="icon icon-calendar"></i>' . $fechaNacimiento . '
                         </li>
                     </ul>
                 </div>
             </div><br>';
-
         }
         echo '
                 </div>
@@ -96,7 +95,8 @@ Class socios {
         ';
     }
 
-    public static function ctrRepoMensualidades(){
+    public static function ctrRepoMensualidades()
+    {
         $mensualidades = mdlSocios::mdlRepoMensualidades();
 
         # ----------------------------------------------
@@ -106,13 +106,13 @@ Class socios {
         $pagados = $mensualidades["socios"];
         $totalSocios = $mensualidades["totalSocios"];
 
-        $porcentajeSocios = ($pagados / $totalSocios)*100;
-        $compara = $porcentajeSocios%5;
-        
-        while ($compara != 0 ){  
-            $pagados ++;        
-            $porcentajeSocios = ($pagados / $totalSocios)*100;
-            $compara = $porcentajeSocios%5;
+        $porcentajeSocios = ($pagados / $totalSocios) * 100;
+        $compara = $porcentajeSocios % 5;
+
+        while ($compara != 0) {
+            $pagados++;
+            $porcentajeSocios = ($pagados / $totalSocios) * 100;
+            $compara = $porcentajeSocios % 5;
         }
         echo '
 
@@ -123,11 +123,11 @@ Class socios {
                 </div>
                 <div class="card-body ">
                     <h5 class="">Cobrado</h5>
-                    <h2 class="text-dark  mt-0 ">$ '.$mensualidades["mensualidad"].'</h2>
+                    <h2 class="text-dark  mt-0 ">$ ' . $mensualidades["mensualidad"] . '</h2>
                     <div class="progress progress-sm mt-0 mb-2">
-                        <div class="progress-bar bg-primary w-'.$porcentajeSocios.'" role="progressbar"></div>
+                        <div class="progress-bar bg-primary w-' . $porcentajeSocios . '" role="progressbar"></div>
                     </div>
-                    <div class=""><i class="fa fa-caret-up text-green"></i>'.$porcentajeSocios.'% de socios</div>
+                    <div class=""><i class="fa fa-caret-up text-green"></i>' . $porcentajeSocios . '% de socios</div>
                 </div>
             </div>
         </div>';
@@ -141,24 +141,27 @@ Class socios {
                 </div>
                 <div class="card-body ">
                     <h5 class="">Total registrados</h5>
-                    <h2 class="text-dark  mt-0 ">'.$totalSocios.'</h2>
+                    <h2 class="text-dark  mt-0 ">' . $totalSocios . '</h2>
                 </div>
             </div>
         </div>
         ';
     }
 
-    public static function ctrRegistraPrecio(){
-        if(isset($_POST["categoria"])){
-        
-            $datos = array("categoria" => $_POST["categoria"],
-                           "costo" => $_POST["costo"]);
+    public static function ctrRegistraPrecio()
+    {
+        if (isset($_POST["categoria"])) {
+
+            $datos = array(
+                "categoria" => $_POST["categoria"],
+                "costo" => $_POST["costo"]
+            );
 
             $ingresa = mdlSocios::mdlRegistraPrecio($datos);
 
-            if ($ingresa == "ok"){
+            if ($ingresa == "ok") {
 
-                    echo "<script>Swal.fire({
+                echo "<script>Swal.fire({
                         title: 'Registro Exitoso',
                         text: 'El nuevo precio ha sio registrado',
                         icon: 'success',
@@ -170,8 +173,7 @@ Class socios {
                         }
                       })
                       </script>";
-            }
-            else{
+            } else {
 
                 echo "<script>Swal.fire({
                     title: 'Error',
@@ -185,29 +187,71 @@ Class socios {
                     }
                   })
                   </script>";
+            }
         }
-            
-            
+    }
+
+    public static function ctrRegistraGrupo()
+    {
+        if (isset($_POST["nombreG"])) {
+
+            $datos = array("nombreG" => $_POST["nombreG"]);
+
+            $ingresa = mdlSocios::mdlRegistraGrupo($datos);
+
+            if ($ingresa == "ok") {
+
+                echo "<script>Swal.fire({
+                        title: 'Registro Exitoso',
+                        text: 'El nuevo grupo ha sio registrado',
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok'
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location='index.php?page=grupoList'
+                        }
+                      })
+                      </script>";
+            } else {
+
+                echo "<script>Swal.fire({
+                    title: 'Error',
+                    text: 'No se pudo guardar la información',
+                    icon: 'danger',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location='index.php?page=grupoList'
+                    }
+                  })
+                  </script>";
+            }
         }
     }
 
 
-    public static function ctrActualiza(){
-        if(isset($_POST["btnActualiza"])){
+    public static function ctrActualiza()
+    {
+        if (isset($_POST["btnActualiza"])) {
 
             $fechaNacimiento = $_POST["dateAnio"] . "-" . $_POST["dateMes"] . "-" . $_POST["dateDia"];
-        
-            $datos = array("socioId" => $_POST["socioId"],
-                           "nombres" => $_POST["nombres"],
-                           "apellidos" => $_POST["apellidos"],
-                           "telefono" => $_POST["telefono"],
-                           "contacto" => $_POST["contacto"],
-                           "tipoSocio" => $_POST["tipoSocio"],
-                           "fechaNacimiento" => $fechaNacimiento);
+
+            $datos = array(
+                "socioId" => $_POST["socioId"],
+                "nombres" => $_POST["nombres"],
+                "apellidos" => $_POST["apellidos"],
+                "telefono" => $_POST["telefono"],
+                "contacto" => $_POST["contacto"],
+                "nombreG" => $_POST["nombreG"],
+                "tipoSocio" => $_POST["tipoSocio"],
+                "fechaNacimiento" => $fechaNacimiento
+            );
 
             $actualiza = mdlSocios::mdlActualizaSocio($datos);
 
-            if ($actualiza == "ok"){
+            if ($actualiza == "ok") {
 
                 echo "<script>Swal.fire({
                     title: 'Actualizado!',
@@ -221,7 +265,7 @@ Class socios {
                     }
                     })
                     </script>";
-            }else{
+            } else {
                 echo "<script>Swal.fire({
                     title: 'Error!',
                     text: 'No se logró actualizar La información',
@@ -234,26 +278,27 @@ Class socios {
                     }
                   })
                   </script>";
-
             }
-            
         }
         if (isset($_POST["btnCancel"])) {
             echo '<script>window.location="index.php?page=socioList";</script>';
         }
     }
 
-    public static function ctrActualizaPrecio(){
-        if(isset($_POST["btnActualiza"])){
+    public static function ctrActualizaPrecio()
+    {
+        if (isset($_POST["btnActualiza"])) {
 
-       
-            $datos = array("id" => $_POST["id"],
-                           "categoria" => $_POST["categoria"],
-                           "costo" => $_POST["costo"]);
+
+            $datos = array(
+                "id" => $_POST["id"],
+                "categoria" => $_POST["categoria"],
+                "costo" => $_POST["costo"]
+            );
 
             $actualiza = mdlSocios::mdlActualizaPrecio($datos);
 
-            if ($actualiza == "ok"){
+            if ($actualiza == "ok") {
 
                 echo "<script>Swal.fire({
                     title: 'Actualizado!',
@@ -267,7 +312,7 @@ Class socios {
                     }
                     })
                     </script>";
-            }else{
+            } else {
                 echo "<script>Swal.fire({
                     title: 'Error!',
                     text: 'No se logró actualizar La información',
@@ -280,9 +325,7 @@ Class socios {
                     }
                   })
                   </script>";
-
             }
-            
         }
         if (isset($_POST["btnCancel"])) {
             echo '<script>window.location="index.php?page=precioList";</script>';
@@ -292,118 +335,165 @@ Class socios {
 
     #  Lista todos los usuarios disponibles en la tabla que recibe como parametro
     #------------------------------------------------------------------------------------------------
-    public static function ctrListaSocios(){
+    public static function ctrListaSocios()
+    {
 
-		$respuesta = mdlSocios::mdlLista("socios");
+        $respuesta = mdlSocios::mdlLista("socios");
 
-		foreach ($respuesta as $row => $item){
+        foreach ($respuesta as $row => $item) {
             if ($item["tipoSocio"] == 1) $tipoSocio = '<td>Socio</td>';
             if ($item["tipoSocio"] == 2) $tipoSocio = '<td>Estudiante</td>';
             if ($item["tipoSocio"] == 3) $tipoSocio = '<td>Referido</td>';
             $cumple = strftime("%d de %B de %Y", strtotime($item["fechaNacimiento"]));
             $registro = strftime("%d de %B de %Y", strtotime($item["fechaRegistro"]));
 
+
             echo '
             <tr>
-                <td>'.$item["nombres"].' '.$item["apellidos"].'</td>
-                <td>'.$item["tipoSocio"].'</td>
-                <td>'.$item["telefono"].'</td>
-                <td>'.$registro.'</td>
-                <td>'.$cumple.'</td>
+                <td>' . $item["nombres"] . ' ' . $item["apellidos"] . '</td>
+                <td>' . $item["tipoSocio"] . '</td>
+                <td>' . $item["telefono"] . '</td>
+                <td>' . $registro . '</td>
+                <td>' . $cumple . '</td>
                 <td>
                     <div class="item-action dropdown">
                         <a href="javascript:void(0)" data-toggle="dropdown" class="icon" aria-expanded="false"><i class="fe fe-more-vertical fs-20 text-dark"></i></a>
                         <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-172px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
-                            <a href="index.php?page=socioEdit&idEditar='.$item["idSocio"].'" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Editar </a>
-                            <a href="index.php?page=socioList&idBorrar='.$item["idSocio"].'" class="dropdown-item"><i class="dropdown-icon fe fe-user-x"></i> Borrar </a>
+                            <a href="index.php?page=socioEdit&idEditar=' . $item["idSocio"] . '" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Editar </a>
+                            <a href="index.php?page=socioList&idBorrar=' . $item["idSocio"] . '" class="dropdown-item"><i class="dropdown-icon fe fe-user-x"></i> Borrar </a>
                         </div>
                     </div>
                 </td>
             </tr>';
-		}
-	}
+        }
+    }
 
-    public static function ctrListaPrecios(){
+    public static function ctrListaAsistencia($grupo)
+    {
 
-		$respuesta = mdlSocios::mdlLista("precios");
+        if (!empty($grupo) || $grupo != "") {
 
-		foreach ($respuesta as $row => $item){
-            // if ($item["tipoSocio"] == 1) $tipoSocio = '<td>Socio</td>';
-            // if ($item["tipoSocio"] == 2) $tipoSocio = '<td>Estudiante</td>';
-            // if ($item["tipoSocio"] == 3) $tipoSocio = '<td>Referido</td>';
-            // $cumple = strftime("%d de %B de %Y", strtotime($item["fechaNacimiento"]));
-            // $registro = strftime("%d de %B de %Y", strtotime($item["fechaRegistro"]));
+            $respuesta = mdlSocios::mdlListaFiltro($grupo);
+            //  contenido de la tabla ---------------------------------------------------------
+            foreach ($respuesta as $row => $item) {
+                echo '
+            <tr>
+                <td>
+                <a href="index.php?page=asistencia&socio=' . $item["idSocio"] . '&grupo='.$grupo.'" class="dropdown-item"><i class="fe fe-activity"></i>
+                </td>
+                <td>' . $item["nombres"] . ' ' . $item["apellidos"] . '</td>
+                <td>' . $item["tipoSocio"] . '</td>
+                <td>' . $item["telefono"] . '</td>
+                <td>' . $item["nombreG"] . '</td>
+
+            </tr>';
+            }
+
+            // cierre de la tabla ---------------------------------------------
+        }else{
+            echo "<h1 align=center>Seleccione un grupo</h1>";
+        }
+    }
+
+    public static function ctrListaPrecios()
+    {
+
+        $respuesta = mdlSocios::mdlLista("precios");
+
+        foreach ($respuesta as $row => $item) {
 
             echo '
             <tr>
-                <td>'.$item["categoria"].'</td>
-                <td>'.$item["costo"].'</td>
+                <td>' . $item["categoria"] . '</td>
+                <td>' . $item["costo"] . '</td>
                 <td>
                     <div class="item-action dropdown">
                         <a href="javascript:void(0)" data-toggle="dropdown" class="icon" aria-expanded="false"><i class="fe fe-more-vertical fs-20 text-dark"></i></a>
                         <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-172px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
-                            <a href="index.php?page=precioEdit&idEditar='.$item["id"].'" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Editar </a>
-                            <a href="index.php?page=precioList&idBorrar='.$item["id"].'" class="dropdown-item"><i class="dropdown-icon fe fe-user-x"></i> Borrar </a>
+                            <a href="index.php?page=precioEdit&idEditar=' . $item["id"] . '" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Editar </a>
+                            <a href="index.php?page=precioList&idBorrar=' . $item["id"] . '" class="dropdown-item"><i class="dropdown-icon fe fe-user-x"></i> Borrar </a>
                         </div>
                     </div>
                 </td>
             </tr>';
-		}
-	}
+        }
+    }
 
-    public static function ctrListaSociosInicio(){
+    public static function ctrListaGrupos()
+    {
 
-		$respuesta = mdlSocios::mdlLista("socios");
+        $respuesta = mdlSocios::mdlLista("grupos");
+
+        foreach ($respuesta as $row => $item) {
+            echo '
+            <tr>
+                <td>' . $item["nombreG"] . '</td>
+                <td>
+                <a href="index.php?page=grupoEdit&idEditar=' . $item["id"] . '"><i class="dropdown-icon fe fe-edit-2"></i> Editar </a>
+                <br>
+                <a href="index.php?page=grupoList&idBorrar=' . $item["id"] . '"><i class="dropdown-icon fe fe-user-x"></i> Borrar </a>
+                </td>
+            </tr>';
+        }
+    }
+
+    public static function ctrListaSociosInicio()
+    {
+
+        $respuesta = mdlSocios::mdlLista("socios");
         date_default_timezone_set('UTC');
         date_default_timezone_set("America/Chihuahua");
         $hoy = date("d");
-        
 
-		foreach ($respuesta as $row => $item){
+
+        foreach ($respuesta as $row => $item) {
             if ($item["tipoSocio"] == 1) $tipoSocio = '<td>Socio</td>';
             if ($item["tipoSocio"] == 2) $tipoSocio = '<td>Estudiante</td>';
             if ($item["tipoSocio"] == 3) $tipoSocio = '<td>Referido</td>';
             $cumple = strftime("%d de %B", strtotime($item["fechaNacimiento"]));
             $registro = strftime("%d de %B de %Y", strtotime($item["fechaRegistro"]));
 
-            // calculo de diferencia de las fechas
-            $fecha_inicial= $item["fechaUltimoPago"];
-            $fecha_final = date('Y-m-d'); 
-            
-            $dias = (strtotime($fecha_inicial)-strtotime($fecha_final))/86400;
-            $dias = abs($dias); $dias = floor($dias);
-            
-            if(is_null($fecha_inicial)) $dias_pasados = "sin pago";
-            else $dias_pasados = $dias+1;
+            if ($item["nombreG"] == 1) $nombreG = '<td>Infantil</td>';
+            if ($item["nombreG"] == 2) $nombreG = '<td>Juvenil</td>';
+            if ($item["nombreG"] == 3) $nombreG = '<td>8-9</td>';
 
-            if ($dias_pasados >= 31 ) $mens_dias = '<p class="text-primary">'.$dias_pasados.'</p>';
-            else $mens_dias = '<p class="text-green">'.$dias_pasados.'</p>';
+
+
+            // calculo de diferencia de las fechas
+            $fecha_inicial = $item["fechaUltimoPago"];
+            $fecha_final = date('Y-m-d');
+
+            $dias = (strtotime($fecha_inicial) - strtotime($fecha_final)) / 86400;
+            $dias = abs($dias);
+            $dias = floor($dias);
+
+            if (is_null($fecha_inicial)) $dias_pasados = "sin pago";
+            else $dias_pasados = $dias + 1;
+
+            if ($dias_pasados >= 31) $mens_dias = '<p class="text-primary">' . $dias_pasados . '</p>';
+            else $mens_dias = '<p class="text-green">' . $dias_pasados . '</p>';
             //---------------------------------------------------------
 
             echo '
             <tr>
-                <td>'.$item["nombres"].' '.$item["apellidos"].'</td>
-                <td>'.$mens_dias.'</td>
-                <td>'.$item["contacto"].'</td>
-                <td> <a href="tel:'.$item["telefono"].'">'.$item["telefono"].'</a></td>
-                <td>'.$registro.'</td>
-                <td>
-                    <div class="item-action dropdown">
-                        <a href="javascript:void(0)" data-toggle="dropdown" class="icon" aria-expanded="false"><i class="fe fe-more-vertical fs-20 text-dark"></i></a>
-                        <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-172px, 22px, 0px); top: 0px; left: 0px; will-change: transform;">
-                            <a href="index.php?page=mensualidad&socio='.$item["idSocio"].'" class="dropdown-item"><i class="dropdown-icon fa fa-usd"></i> Mensualidad </a>
-                        </div>
-                    </div>
+                <td style="width:75px;">
+                <a href="index.php?page=mensualidad&socio=' . $item["idSocio"] . '" ><i class="fa fa-usd"></i>&nbsp;&nbsp;</a>  
                 </td>
+                <td>' . $item["nombres"] . ' ' . $item["apellidos"] . '</td>
+                <td style="width:75px;">' . $mens_dias . '</td>
+                <td>' . $item["contacto"] . '</td>
+                <td>' . $item["nombreG"] . '</td>
+                <td> <a href="tel:' . $item["telefono"] . '">' . $item["telefono"] . '</a></td>
             </tr>';
-		}
-	}
+        }
+    }
 
 
-    	#BORRAR SOCIO
-	#------------------------------------
-	public static function ctrBorrarSocio(){
-		if (isset($_GET['idBorrar'])){
+    #BORRAR SOCIO
+    #------------------------------------
+    public static function ctrBorrarSocio()
+    {
+        if (isset($_GET['idBorrar'])) {
             echo '<script>  
             Swal.fire({
                 title: "¿Está seguro?",
@@ -415,15 +505,16 @@ Class socios {
                 confirmButtonText: "¡Si, borrar!"
               }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location="index.php?page=socioDel&idBorrar="+'.$_GET["idBorrar"].'
+                    window.location="index.php?page=socioDel&idBorrar="+' . $_GET["idBorrar"] . '
                 }
               })
               </script>';
-		}
-	}
+        }
+    }
 
-    public static function ctrBorrarPrecio(){
-		if (isset($_GET['idBorrar'])){
+    public static function ctrBorrarPrecio()
+    {
+        if (isset($_GET['idBorrar'])) {
             echo '<script>  
             Swal.fire({
                 title: "¿Está seguro?",
@@ -435,56 +526,48 @@ Class socios {
                 confirmButtonText: "¡Si, borrar!"
               }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location="index.php?page=precioDel&idBorrar="+'.$_GET["idBorrar"].'
+                    window.location="index.php?page=precioDel&idBorrar="+' . $_GET["idBorrar"] . '
                 }
               })
               </script>';
-		}
-	}
+        }
+    }
 
-    public function ctrActualizarAsistencia() {
+    public function ctrActualizarAsistencia()
+    {
         if (isset($_GET['socio'])) {
             $idSocio = $_GET['socio'];
-            
+            $grupo=$_GET['grupo'];
+
             $respuesta = mdlSocios::mdlActualizarAsistencia($idSocio);
 
             if ($respuesta === "success") {
                 echo '<script>  
-                Swal.fire({
-                    title: "Actualizar asistencia",
-                    text: "La asistencia fue borrada exitosamente",
-                    icon: "success",
-                    showCancelButton: false,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Aceptar"
-                  }).then((result) => {
-                  
-                        window.location.href = "index.php?page=socioList";
-                    
-                  })
+                window.location.href = "index.php?page=tomaAsistencia&grupo='.$grupo.'";
+
                   </script>';
-            } else {
-                echo '<script>  
-                Swal.fire({
-                    title: "Actualizar asistencia",
-                    text: "La asistencia no se pudo actualizar",
-                    icon: "error",
-                    showCancelButton: false,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Aceptar"
-                  }).then((result) => {
+            // } else {
+            //     echo '<script>  
+            //     Swal.fire({
+            //         title: "Actualizar asistencia",
+            //         text: "La asistencia no se pudo actualizar",
+            //         icon: "error",
+            //         showCancelButton: false,
+            //         confirmButtonColor: "#3085d6",
+            //         cancelButtonColor: "#d33",
+            //         confirmButtonText: "Aceptar"
+            //       }).then((result) => {
                   
-                        window.location.href = "index.php?page=socioList";
+            //             window.location.href = "index.php?page=socioList";
                     
-                  })
-                  </script>';
+            //       })
+            //       </script>';
             }
         }
     }
 
-    public function ctrRegistrarMensualidad() {
+    public function ctrRegistrarMensualidad()
+    {
         if (isset($_GET['socio'])) {
             $idSocio = $_GET['socio'];
 
@@ -494,11 +577,11 @@ Class socios {
 
             $ultimo_pago = mdlSocios::mdlRegistraUltimoPago($idSocio);
 
-            $mensaualidad = mdlSocios::mdlRegistrarMensualidad($idSocio, $pago);
+            $mensualidad = mdlSocios::mdlRegistrarMensualidad($idSocio, $pago);
 
 
 
-            if ($ultimo_pago === "success" && $mensaualidad === "success") {
+            if ($ultimo_pago === "success" && $mensualidad === "success") {
                 echo '<script>  
                 Swal.fire({
                     title: "Pago Registrado",
@@ -534,34 +617,43 @@ Class socios {
         }
     }
 
-    public function ctrSelectSocios() {
+    public function ctrSelectSocios()
+    {
         $respuesta = mdlSocios::mdlLista("socios");
 
-        foreach($respuesta as $socio) {
+        foreach ($respuesta as $socio) {
             echo '<option value="' . $socio['idSocio'] . '">' . $socio['nombres'] . ' ' . $socio['apellidos'] . '</option>';
         }
     }
 
-    public function ctrSelectPrecios() {
+    public function ctrSelectPrecios()
+    {
         $respuesta = mdlSocios::mdlLista("precios");
 
-        foreach($respuesta as $precio) {
+        foreach ($respuesta as $precio) {
             echo '<option value="' . $precio['categoria'] . '">' . $precio['categoria'] . '</option>';
         }
     }
 
-    public function ctrSelectedPrecios($tipoSocio) {
+    public function ctrSelectGrupos()
+    {
+        $respuesta = mdlSocios::mdlLista("grupos");
+
+        foreach ($respuesta as $nombre) {
+            echo '<option value="' . $nombre['nombreG'] . '">' . $nombre['nombreG'] . '</option>';
+        }
+    }
+
+    public function ctrSelectedPrecios($tipoSocio)
+    {
 
         $respuesta = mdlSocios::mdlLista("precios");
 
-        foreach($respuesta as $precio) {
+        foreach ($respuesta as $precio) {
             if ($precio["categoria"] == $tipoSocio)
                 echo '<option value="' . $precio['categoria'] . '" selected>' . $precio['categoria'] . '</option>';
             else
                 echo '<option value="' . $precio['categoria'] . '">' . $precio['categoria'] . '</option>';
         }
     }
-
 }//Class
-
-?>

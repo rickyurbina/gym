@@ -9,14 +9,15 @@ class mdlSocios {
     
     public static function mdlRegistraSocio($datos){
 
-        $stmt = Conexion::conectar()->prepare("INSERT INTO `socios` (`idSocio`, `nombres`, `apellidos`, `telefono`, `contacto`, `tipoSocio`, `fechaNacimiento`, `fechaRegistro`) 
-        VALUES (NULL, :nombres, :apellidos, :telefono, :contacto, :tipoSocio, :fechaNacimiento, :fechaRegistro);");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO `socios` (`idSocio`, `nombres`, `apellidos`, `telefono`, `contacto`, `nombreG`, `tipoSocio`, `fechaNacimiento`, `fechaRegistro`) 
+        VALUES (NULL, :nombres, :apellidos, :telefono, :contacto, :nombreG, :tipoSocio, :fechaNacimiento, :fechaRegistro);");
 
 
          $stmt -> bindParam(":nombres", $datos["nombres"], PDO::PARAM_STR);
          $stmt -> bindParam(":apellidos", $datos["apellidos"], PDO::PARAM_STR);
          $stmt -> bindParam(":telefono", $datos["telefono"], PDO::PARAM_STR);
          $stmt -> bindParam(":contacto", $datos["contacto"], PDO::PARAM_STR);
+         $stmt -> bindParam(":nombreG", $datos["nombreG"], PDO::PARAM_STR);
          $stmt -> bindParam(":tipoSocio", $datos["tipoSocio"], PDO::PARAM_STR);
          $stmt -> bindParam(":fechaNacimiento", $datos["fechaNacimiento"], PDO::PARAM_STR);
          $stmt -> bindParam(":fechaRegistro", $datos["fechaRegistro"], PDO::PARAM_STR);
@@ -36,6 +37,21 @@ class mdlSocios {
 
          $stmt -> bindParam(":categoria", $datos["categoria"], PDO::PARAM_STR);
          $stmt -> bindParam(":costo", $datos["costo"], PDO::PARAM_INT);
+         
+        if ($stmt -> execute()){
+            return "ok";
+        }
+        else {
+            return "error";
+        }
+    }
+
+    public static function mdlRegistraGrupo($datos){
+
+        $stmt = Conexion::conectar()->prepare("INSERT INTO `grupos` VALUES (NULL, :nombreG);");
+
+
+         $stmt -> bindParam(":nombreG", $datos["nombreG"], PDO::PARAM_STR);
          
         if ($stmt -> execute()){
             return "ok";
@@ -94,6 +110,20 @@ class mdlSocios {
 		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
 		$stmt->execute();
 
+		#fetchAll(): Obtiene todas las filas de un conjunto de resultados asociado al objeto PDOStatement.
+		return $stmt->fetchAll();
+
+		//$stmt->close();
+
+	}
+
+        	#LISTA todos los registros de una tabla
+	#--------------------------------------------
+    public static function mdlListaFiltro($grupo){
+
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM `socios` WHERE `nombreG` = '$grupo' ");
+		$stmt->execute();
+        
 		#fetchAll(): Obtiene todas las filas de un conjunto de resultados asociado al objeto PDOStatement.
 		return $stmt->fetchAll();
 
@@ -187,7 +217,7 @@ class mdlSocios {
     }
 
     public static function mdlRegistraUltimoPago($idSocio) {
-        $statement = Conexion::conectar() -> prepare("UPDATE socios SET fechaUltimoPago = now() WHERE idSocio = :idSocio;");
+        $statement = Conexion::conectar() -> prepare("UPDATE socios SET fechaUltimoPago = CURRENT_DATE() WHERE idSocio = :idSocio;");
 
         $statement -> bindParam(":idSocio", $idSocio, PDO::PARAM_INT);
 
@@ -198,7 +228,13 @@ class mdlSocios {
         }
     }
     public static function mdlRegistrarMensualidad($idSocio, $mensualidad) {
-        $statement = Conexion::conectar() -> prepare("INSERT INTO `pagos` VALUES (NULL, $idSocio, $mensualidad, now())");
+        $fecha = 'CURRENT_DATE()';
+        $statement = Conexion::conectar() -> prepare("INSERT INTO `pagos` VALUES (NULL, :idSocio, :mensualidad, :fecha) ");
+
+        $statement -> bindParam(":idSocio", $idSocio, PDO::PARAM_INT);
+        $statement -> bindParam(":mensualidad", $mensualidad, PDO::PARAM_INT);
+        $statement -> bindParam(":fecha", $fecha, PDO::PARAM_STR);
+
 
         if ($statement -> execute()) {
             return "success";

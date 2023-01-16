@@ -42,6 +42,18 @@
                         </div>
                     </div>
 
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Grupo</label>
+                            <select class="form-control custom-select select2" name="nombreG">
+                                <?php
+                                $controllerGrupo = new socios();
+                                $controllerGrupo->ctrSelectGrupos();
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group m-0">
                             <label class="form-label" style="margin-left:1px">Fecha de Nacimiento</label>

@@ -59,6 +59,14 @@
 
 							</ul>
 						</li>
+						<li class="slide <?php if ($pagina == 'grupoAdd' || $pagina == 'grupoList' ) echo 'is-expanded'; ?>">
+							<a class="side-menu__item <?php if ($pagina == 'grupoAdd' || $pagina == 'grupoList' || $pagina == 'grupoEdit' ) echo 'active'; ?>" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-dollar"></i><span class="side-menu__label">Grupos</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li><a class="slide-item <?php if ($pagina == 'grupoAdd') echo 'active'; ?>" href="index.php?page=grupoAdd">Registrar</a></li>
+								<li><a class="slide-item <?php if ($pagina == 'grupoList') echo 'active'; ?>" href="index.php?page=grupoList">Lista de Grupos</a></li>
+
+							</ul>
+						</li>
 						<li class="slide <?php if ($pagina == 'productAdd' || $pagina == 'productList' ) echo 'is-expanded'; ?>">
 							<a class="side-menu__item <?php if ($pagina == 'productAdd' || $pagina == 'productList' ) echo 'active'; ?>" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-cubes"></i><span class="side-menu__label">Product Admin</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
