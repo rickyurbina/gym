@@ -18,6 +18,7 @@ class mdlSocios {
          $stmt -> bindParam(":telefono", $datos["telefono"], PDO::PARAM_STR);
          $stmt -> bindParam(":contacto", $datos["contacto"], PDO::PARAM_STR);
          $stmt -> bindParam(":nombreG", $datos["nombreG"], PDO::PARAM_STR);
+
          $stmt -> bindParam(":tipoSocio", $datos["tipoSocio"], PDO::PARAM_STR);
          $stmt -> bindParam(":fechaNacimiento", $datos["fechaNacimiento"], PDO::PARAM_STR);
          $stmt -> bindParam(":fechaRegistro", $datos["fechaRegistro"], PDO::PARAM_STR);

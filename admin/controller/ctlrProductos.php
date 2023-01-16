@@ -3,19 +3,7 @@ Class productos {
 
     public static function ctrRegistra(){
         if(isset($_POST["registrar"])){
-
-            // echo $_POST["nombre"]."<br>";
-            // echo $_POST["marca"]."<br>";
-            // echo $_POST["contenido"]."<br>";
-            // echo $_POST["precio"]."<br>";
-            // echo $_POST["stock"]."<br>";
-            // echo $_POST["imagen"]."<br>";
-
-            // $original_date = $_POST["fechaNacimiento"];
-            // $timestamp = strtotime($original_date);
-            // $fechaNacimiento = date("Y-m-d", $timestamp);
-            // $fechaRegistro = date('Y-m-d');
-        
+       
             $datos = array("nombre" => $_POST["nombre"],
                            "marca" => $_POST["marca"],
                            "contenido" => $_POST["contenido"],
@@ -26,7 +14,6 @@ Class productos {
 
              $ingresa = mdlProductos::mdlRegistraProducto($datos);
 
-            // echo $ingresa;
 
             if ($ingresa == "ok"){
 
