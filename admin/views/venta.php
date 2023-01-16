@@ -1,55 +1,63 @@
 <div class="page-header">
-    <h4 class="page-title">Venta de productos</h4>
+    <!-- <h4 class="page-title">Venta de productos</h4>
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#">Administración de ventas</a></li>
         <li class="breadcrumb-item active" aria-current="page">Add</li>
-    </ol>
+    </ol> -->
 </div>
+
 <div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
-        <form class="card" method="POST">
-            <div class="card-header">
-                <h3 class="card-title">Ventas</h3>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-6">
-                        <div class="form-group">
-                            <label class="form-label">Productos:</label>
-                            <select name="selectProductos" id="selectProductos" class="form-control" onchange="agregarProducto(event)">
-                                <option value="">Seleccionar productos</option>
-                                <?php
-                                    $controllerProductos = new productos();
-                                    $controllerProductos->ctrSelectProductos();
-                                ?>
-                            </select>
+        <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Ventas al Publico </h3>
+                    
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-6">
+                            <div class="form-group">
+                                <label class="form-label">Productos:</label>
+                                <select name="selectProductos" id="selectProductos" class="form-control" onchange="agregarProducto(event)">
+                                    <option value="">Seleccionar productos</option>
+                                    <?php
+                                        $controllerProductos = new productos();
+                                        $controllerProductos->ctrSelectProductos();
+                                    ?>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-sm-12 col-md-12 col-lg-6">
-                        <div class="form-group">
-                            <label for="form-label">Lista de productos:</label>
-                            <div class="listaProductos" id="listaProductos">
-                                
+                        <div class="col-sm-12 col-md-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="form-label">Lista de productos:</label>
+                                <div class="listaProductos" id="listaProductos">
+                                    
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
+                        <!-- Precio Total 
+                        <div class="col-sm-12 col-md-12 col-lg-3" style="display: flex; justify-content: end">
+                            <p id="total" style="font-size: 1.5rem; font-weight: 900">Total: $0</p>
+                        </div> -->
+
+                        <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-6">
                         <div class="form-group">
-                            <label class="form-label">Cliente:</label>
+                            <!-- <label class="form-label">Cliente:</label>
                             <select name="selectCliente" id="selectCliente" class="form-control">
                                 <option value="">Seleccionar cliente</option>
                                 <?php
-                                    $controllerSocios = new socios();
-                                    $controllerSocios -> ctrSelectSocios();
+                                    // $controllerSocios = new socios();
+                                    // $controllerSocios -> ctrSelectSocios();
                                 ?>
-                            </select>
+                            </select> -->
                             <br>
                             <!-- <button class="btn btn-secondary" type="button" id="toggleButton">Agregar cliente</button> -->
                             <br>
                             <br>
-                            <!-- <div id="containerAgregar" class="row containerAgregar">
+                            <div id="containerAgregar" class="row containerAgregar">
                                 <div class="col">
                                     <h4>Agregar cliente</h4>
                                 </div>
@@ -104,60 +112,58 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-12 col-lg-3" style="display: flex; justify-content: end">
-                            <input type="email" name="correoCliente" id="correoCliente" class="form-control" required>
-                    </div>
-                    <div class="col-sm-12 col-md-12 col-lg-3" style="display: flex; justify-content: end">
-                        <p id="total" style="font-size: 1.5rem; font-weight: 900">Total: $0</p>
-                    </div>
+
+                </div>
+
+
                 </div>
             </div>
 
-            <input type="text" id="lista" name="lista">
-            <input type="number" id="totalInput" name="totalInput">
-            <div class="card-footer text-right">
-                <button type="submit" id="login" class="btn btn-primary">Registrar</button>
-            </div>
-            <?php
-                $controllerVentas = new VentasController();
-                $controllerVentas -> ctrAgregarVenta();
-            ?>
-        </form>
-    </div>
-    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-3">
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-3">
             <div class="card overflow-hidden">
                 <div class="card-body ">
                     <form method="POST">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-label">Cliente</label>
-                                <select class="form-control mb-5" name="idCliente" id="idCliente">
-                                    <?php //$clientes = new clientes(); //$clientes -> ctlListClientes();?>
+                                <select class="form-control mb-5" name="selectCliente" id="selectCliente" required>
+                                    <option value="">Seleccionar cliente</option>
+                                    <?php 
+                                    $controllerSocios = new socios();
+                                    $controllerSocios -> ctrSelectSocios();
+                                    ?>
                                 </select>
-                                <label class="form-label">Descuento General (%)</label>
-                                <input type="text" class="form-control mb-5" name="descuento" id="descuento" value="0" onchange = "calculaDescuento(this.value)">
+                                <!-- <label class="form-label">Descuento General (%)</label>
+                                <input type="text" class="form-control mb-5" name="descuento" id="descuento" value="0" onchange = "calculaDescuento(this.value)"> -->
                                 
                                 <label class="form-label">Pago con :</label>
-                                <select class="form-control" name="tipoPago" id="idCliente">
+                                <select class="form-control mb-5" name="tipoPago" id="idCliente">
                                     <option value="E">Efectivo</option>
                                     <option value="T">Tarjeta Credito/Debito</option>
                                     <option value="O">Otro</option>
                                 </select>
 
+                                <!-- Informacion a grabar de la venta -->
+
                                 <input type="text" class="form-control" name="pedidoNum" id="pedidoNum" value="<?php echo $siguiente; ?>" hidden>
                                 <input type="text" class="form-control" name="concepto" id="concepto" value="venta" hidden>
                                 <input class="form-control fc-datepicker" placeholder="MM/DD/YYYY" type="text" name="fechaMovimiento" id="fechaMovimiento" hidden>
-                                <input type="text" class="form-control" name="pedidoBD" id="pedidoBD" hidden >
+                                <input type="text" class="form-control" name="pedidoBD" id="pedidoBD"  hidden>
                                 <input type="text" class="form-control" name="totalPedidoBD" id="totalPedidoBD" hidden>
                                 <input type="text" class="form-control" name="valorDescuento" id="valorDescuento" hidden>
                                 <input type="text" class="form-control" name="pedidoNeto" id="pedidoNeto" hidden>
+                                <input type="text" id="lista" name="lista" hidden>
+
+                                <label class="form-label">Cantidad que paga :</label>
+                                <input type="text" type="text" class="form-control" id="totalInput" name="totalInput">
 
                             </div>
                         </div>
-                        <div class="card-options"><h3 id="totalPedido">$</h3> </div>
+                        <div class="card-options"><h3 id="total">$</h3> </div>
                             
                         <div class="row">
                             <div class="col-sm-12 col-md-12">
@@ -166,16 +172,77 @@
                                 </div>
                             </div>
                         </div>
+                            <?php
+                                $controllerVentas = new VentasController();
+                                $controllerVentas -> ctrAgregarVenta();
+                            ?>
 
                     </form>
                 </div>
             </div>
         </div>
+    </div>
 
-</div>
+
+
+
+
+
+<!-- <div class="row">
+    <form class="card" method="POST">
+        <div class="col-sm-9 col-md-9 col-lg-9 col-xl-9">        
+            <div class="card-header">
+                <h3 class="card-title">Ventas</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="form-group">
+                            <label class="form-label">Productos:</label>
+                            <select name="selectProductos" id="selectProductos" class="form-control" onchange="agregarProducto(event)">
+                                <option value="">Seleccionar productos</option>
+                                <?php
+                                    //$controllerProductos = new productos();
+                                    //$controllerProductos->ctrSelectProductos();
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="form-group">
+                            <label for="form-label">Lista de productos:</label>
+                            <div class="listaProductos" id="listaProductos">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    Precio Total 
+                    <div class="col-sm-12 col-md-12 col-lg-3" style="display: flex; justify-content: end">
+                        <p id="total" style="font-size: 1.5rem; font-weight: 900">Total: $0</p>
+                    </div> 
+
+            </div>
+
+            
+            <div class="card-footer text-right">
+                <button type="submit" id="login" class="btn btn-primary">Registrar</button>
+            </div>
+            
+        
+        </div>
+        
+
+        </form>
+
+</div> -->
 
 <script>
     const listaProductos = [];
+    let total = 0;
+    const cajaDescuento = document.querySelector('#descuento');
+    const cajaValorDescuento = document.querySelector('#valorDescuento');
+    const cajaTotalNeto = document.querySelector('#totalInput');
 
     function agregarProducto(event) {
         if (event.target.value) {
@@ -274,7 +341,7 @@
         }
     }
 
-    let total = 0;
+    
 
     function calcularTotal() {
         total = 0;
@@ -284,6 +351,23 @@
 
         document.getElementById('total').innerText = `Total: $${total}`;
         document.getElementById('totalInput').value = total;
+    }
+
+    function calculaDescuento(descuento){
+        if (descuento>=0 && descuento < 100) 
+        {
+            let valorDescuento = totalPedido * parseInt(descuento)/100;
+            let totalNeto = totalPedido - valorDescuento;
+
+            cajaTotalNeto.value = totalNeto;
+            cajaValorDescuento.value = valorDescuento;
+            totalLabel.innerHTML = `$ ${totalNeto}`;
+            totalPedidoBD.value = totalPedido;
+        }
+        else
+        {
+            cajaDescuento.value = 0;
+        }
     }
 
 </script>
