@@ -22,10 +22,16 @@ class VentasController {
       }
 
       if ($_POST['selectCliente']) {
+        $pago = $_POST['totalInput'];
+        $totalVenta = $_POST['totalVenta'];
+        $debe = $totalVenta - $pago;
+
         $datosController = array(
           "idCliente" => $_POST['selectCliente'],
           "productos" => $_POST['lista'],
-          "total" => $_POST['totalInput']
+          "pago" => $pago,
+          "totalVenta" => $totalVenta,
+          "debe" => $debe
         );
 
         $respuesta = VentasModel::mdlAgregarVenta($datosController);

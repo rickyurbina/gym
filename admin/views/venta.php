@@ -1,11 +1,4 @@
-<div class="page-header">
-    <!-- <h4 class="page-title">Venta de productos</h4>
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Administración de ventas</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Add</li>
-    </ol> -->
-</div>
-
+<br>
 <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9">
             
@@ -16,7 +9,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="col-sm-9 col-md-9 col-lg-4">
                             <div class="form-group">
                                 <label class="form-label">Productos:</label>
                                 <select name="selectProductos" id="selectProductos" class="form-control" onchange="agregarProducto(event)">
@@ -28,7 +21,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-12 col-lg-6">
+                        <div class="col-sm-12 col-md-12 col-lg-8">
                             <div class="form-group">
                                 <label for="form-label">Lista de productos:</label>
                                 <div class="listaProductos" id="listaProductos">
@@ -149,13 +142,14 @@
 
                                 <!-- Informacion a grabar de la venta -->
 
-                                <input type="text" class="form-control" name="pedidoNum" id="pedidoNum" value="<?php echo $siguiente; ?>" hidden>
-                                <input type="text" class="form-control" name="concepto" id="concepto" value="venta" hidden>
-                                <input class="form-control fc-datepicker" placeholder="MM/DD/YYYY" type="text" name="fechaMovimiento" id="fechaMovimiento" hidden>
-                                <input type="text" class="form-control" name="pedidoBD" id="pedidoBD"  hidden>
-                                <input type="text" class="form-control" name="totalPedidoBD" id="totalPedidoBD" hidden>
-                                <input type="text" class="form-control" name="valorDescuento" id="valorDescuento" hidden>
-                                <input type="text" class="form-control" name="pedidoNeto" id="pedidoNeto" hidden>
+                                <!-- <input type="text" class="form-control" name="pedidoNum" id="pedidoNum" value="<?php //echo $siguiente; ?>">
+                                <input type="text" class="form-control" name="concepto" id="concepto" value="venta">
+                                <input class="form-control fc-datepicker" placeholder="MM/DD/YYYY" type="text" name="fechaMovimiento" id="fechaMovimiento">
+                                <input type="text" class="form-control" name="pedidoBD" id="pedidoBD">
+                                <input type="text" class="form-control" name="totalPedidoBD" id="totalPedidoBD">
+                                <input type="text" class="form-control" name="valorDescuento" id="valorDescuento">
+                                <input type="text" class="form-control" name="pedidoNeto" id="pedidoNeto"> -->
+                                <input type="text" id="totalVenta" name="totalVenta" hidden>
                                 <input type="text" id="lista" name="lista" hidden>
 
                                 <label class="form-label">Cantidad que paga :</label>
@@ -243,6 +237,7 @@
     const cajaDescuento = document.querySelector('#descuento');
     const cajaValorDescuento = document.querySelector('#valorDescuento');
     const cajaTotalNeto = document.querySelector('#totalInput');
+    const cajaTotalVenta = document.querySelector('#totalVenta');
 
     function agregarProducto(event) {
         if (event.target.value) {
@@ -300,7 +295,10 @@
         if (event.target.value < 1) {
             event.target.value = 1;
         }
+        
         listaProductos[index].cantidad = event.target.value;
+        console.log(listaProductos);
+        document.getElementById('lista').value = JSON.stringify(listaProductos);
         document.getElementById('listaProductos').value = JSON.stringify(listaProductos);
         calcularTotal();
 
@@ -309,6 +307,7 @@
     function removerProducto(index) {
         listaProductos.splice(index, 1);
         dibujarLista();
+        document.getElementById('lista').value = JSON.stringify(listaProductos);
         document.getElementById('listaProductos').value = JSON.stringify(listaProductos);
         calcularTotal();
     }
@@ -351,6 +350,7 @@
 
         document.getElementById('total').innerText = `Total: $${total}`;
         document.getElementById('totalInput').value = total;
+        cajaTotalVenta.value = total;
     }
 
     function calculaDescuento(descuento){
@@ -360,6 +360,7 @@
             let totalNeto = totalPedido - valorDescuento;
 
             cajaTotalNeto.value = totalNeto;
+            cajaTotalVenta.value = totalNeto;
             cajaValorDescuento.value = valorDescuento;
             totalLabel.innerHTML = `$ ${totalNeto}`;
             totalPedidoBD.value = totalPedido;
