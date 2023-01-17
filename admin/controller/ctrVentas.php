@@ -1,6 +1,43 @@
 <?php
 
 class VentasController {
+
+
+  public static function ctrRepoVentasProductos()
+    {
+        $ventas = VentasModel::mdlRepoVentaProductos();
+
+        # ----------------------------------------------
+        # Funcion para redondear el porcentaje de 5 en 5 
+        # ----------------------------------------------
+
+        // $pagados = $mensualidades["socios"];
+        // $totalSocios = $mensualidades["totalSocios"];
+
+        // $porcentajeSocios = ($pagados / $totalSocios) * 100;
+        
+        // $compara = $porcentajeSocios % 5;
+
+        // while ($compara != 0) {
+        //     $pagados++;
+        //     $porcentajeSocios = ($pagados / $totalSocios) * 100;
+        //     $compara = $porcentajeSocios % 5;
+        // }
+        
+
+        echo '
+            <div class="col-sm-12 col-lg-6 col-xl-3">
+              <div class="card">
+                <div class="card-body iconfont text-center">
+                  <h5 class="text-muted">'.$ventas["pagos"].' Cobros de Productos</h5>
+                  <h1 class="mb-2 text-secondary ">$'.number_format($ventas["cobrado"],2).'</h1>
+                  <p><span class="text-red"><i class="fa fa-exclamation-circle text-red"></i> $ '.number_format($ventas["adeudo"],2).'</span> de adeudos</p>
+                </div>
+              </div>
+            </div>';
+
+    }
+
   public function ctrAgregarVenta() {
     if (isset($_POST['lista'])) {
       // print_r($_POST);
@@ -186,5 +223,5 @@ class VentasController {
       $string .= $producto['nombreProducto'] . ' x '. $producto['cantidad'];
     }
     return $string;
-  } 
+  }
 }

@@ -153,6 +153,7 @@ setlocale(LC_ALL,"es_ES");
 										$pagina == "grupoDel" || 
 										$pagina == "grupoList" || 
 										$pagina == "tomaAsistencia"||
+										$pagina == "abonos"||
 										$pagina == "logOut" ){
 												include "views/".$pagina.".php";
 								}

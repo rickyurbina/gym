@@ -27,13 +27,20 @@
 						<!-- <li class="slide <?php if ($pagina == 'venta') echo 'is-expanded'; ?>">
 							<a class="side-menu__item <?php if ($pagina == 'venta') echo 'active'; ?>" href="index.php?page=venta"><i class="side-menu__icon fa fa-money"></i><span class="side-menu__label">venta</span></a>
 						</li> -->
-						<li class="slide <?php if ($pagina == 'ventaList' || $pagina == 'venta' ) echo 'is-expanded'; ?>">
+						<li class="slide <?php if ($pagina == 'ventaList' || $pagina == 'venta' || $pagina == 'abonos' ) echo 'is-expanded'; ?>">
 							<a class="side-menu__item <?php if ($pagina == 'userAdd' || $pagina == 'userList' ) echo 'active'; ?>" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-user"></i><span class="side-menu__label">Ventas</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
+								<li><a class="slide-item <?php if ($pagina == 'abonos') echo 'active'; ?>" href="index.php?page=abonos">Abonos</a></li>
 								<li><a class="slide-item <?php if ($pagina == 'venta') echo 'active'; ?>" href="index.php?page=venta">Registrar</a></li>
 								<li><a class="slide-item <?php if ($pagina == 'ventaList') echo 'active'; ?>" href="index.php?page=ventaList">Lista de ventas</a></li>
 							</ul>
 						</li>
+
+
+
+
+
+						</li><br><br><h3>Catalogos</h3>
 
 						<li class="slide <?php if ($pagina == 'userAdd' || $pagina == 'userList' ) echo 'is-expanded'; ?>">
 							<a class="side-menu__item <?php if ($pagina == 'userAdd' || $pagina == 'userList' ) echo 'active'; ?>" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-user"></i><span class="side-menu__label">Usuarios</span><i class="angle fa fa-angle-right"></i></a>
@@ -68,7 +75,7 @@
 							</ul>
 						</li>
 						<li class="slide <?php if ($pagina == 'productAdd' || $pagina == 'productList' ) echo 'is-expanded'; ?>">
-							<a class="side-menu__item <?php if ($pagina == 'productAdd' || $pagina == 'productList' ) echo 'active'; ?>" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-cubes"></i><span class="side-menu__label">Product Admin</span><i class="angle fa fa-angle-right"></i></a>
+							<a class="side-menu__item <?php if ($pagina == 'productAdd' || $pagina == 'productList' ) echo 'active'; ?>" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-cubes"></i><span class="side-menu__label">Productos</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
 								<li><a class="slide-item <?php if ($pagina == 'productAdd') echo 'active'; ?>" href="index.php?page=productAdd">Registrar</a></li>
 								<li><a class="slide-item <?php if ($pagina == 'productList') echo 'active'; ?>" href="index.php?page=productList">Lista de Productos</a></li>

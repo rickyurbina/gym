@@ -26,4 +26,14 @@ class VentasModel {
 
     return $statement -> fetchAll();
   }
+
+  public static function mdlRepoVentaProductos(){
+
+    $stmt = Conexion::conectar()->prepare("SELECT sum(`pago`) as cobrado, COUNT(`idVenta`) as pagos, sum(`debe`) as adeudo FROM `ventas` 
+                                                  WHERE MONTH(`fecha`) = MONTH(CURDATE());");
+     
+    $stmt -> execute();
+    return $stmt->fetch();
+
+  }
 }

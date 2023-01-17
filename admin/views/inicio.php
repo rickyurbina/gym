@@ -8,6 +8,8 @@
 	<?php 
 		$mensualidades = new socios();
 		$mensualidades -> ctrRepoMensualidades();
+		$ventas = new VentasController();
+		$ventas->ctrRepoVentasProductos();
 	?>
 </div>
 

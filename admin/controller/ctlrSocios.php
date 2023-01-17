@@ -107,6 +107,7 @@ class socios
         $totalSocios = $mensualidades["totalSocios"];
 
         $porcentajeSocios = ($pagados / $totalSocios) * 100;
+        
         $compara = $porcentajeSocios % 5;
 
         while ($compara != 0) {
@@ -114,12 +115,14 @@ class socios
             $porcentajeSocios = ($pagados / $totalSocios) * 100;
             $compara = $porcentajeSocios % 5;
         }
+        
+
         echo '
 
-        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 ">
+        <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 ">
             <div class="card overflow-hidden">
                 <div class="card-header">
-                    <h3 class="card-title">Mensualidad</h3>
+                    <h3 class="card-title">Cobros Mensualidad</h3>
                 </div>
                 <div class="card-body ">
                     <h5 class="">Cobrado</h5>
@@ -133,7 +136,7 @@ class socios
         </div>';
 
         echo '
-        <div class=" col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <div class=" col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="card overflow-hidden">
                 <div class="card-header">
                     <h3 class="card-title">Socios</h3>
