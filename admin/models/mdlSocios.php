@@ -69,13 +69,14 @@ class mdlSocios {
     public static function mdlActualizaSocio($datos){
 
         $stmt = Conexion::conectar()->prepare("UPDATE `socios` SET `nombres`=:nombres, `apellidos`=:apellidos,
-		`telefono`=:telefono, `contacto`=:contacto, `tipoSocio`=:tipoSocio, `fechaNacimiento`=:fechaNacimiento WHERE idSocio = :socioId;");
+		`telefono`=:telefono, `contacto`=:contacto, `nombreG`=:nombreG, `tipoSocio`=:tipoSocio, `fechaNacimiento`=:fechaNacimiento WHERE idSocio = :socioId;");
 
         $stmt -> bindParam(":socioId", $datos["socioId"], PDO::PARAM_INT);
         $stmt -> bindParam(":nombres", $datos["nombres"], PDO::PARAM_STR);
         $stmt -> bindParam(":apellidos", $datos["apellidos"], PDO::PARAM_STR);
         $stmt -> bindParam(":telefono", $datos["telefono"], PDO::PARAM_STR);
         $stmt -> bindParam(":contacto", $datos["contacto"], PDO::PARAM_STR);
+        $stmt -> bindParam(":nombreG",$datos["nombreG"],PDO::PARAM_STR);
         $stmt -> bindParam(":tipoSocio", $datos["tipoSocio"], PDO::PARAM_STR);
         $stmt -> bindParam(":fechaNacimiento", $datos["fechaNacimiento"], PDO::PARAM_STR);
          

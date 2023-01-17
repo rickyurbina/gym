@@ -30,7 +30,7 @@ else
 
 if (empty($grupo) || $grupo == "") {
 
-    echo '<h3> Seleccione un grupo</h3>';
+    echo '<h3 align="center"> Seleccione un grupo</h3>';
 }
 else {
 
