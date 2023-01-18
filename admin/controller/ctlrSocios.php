@@ -239,6 +239,9 @@ class socios
     {
         if (isset($_POST["btnActualiza"])) {
 
+            if (isset($_POST["dateAnio"]) || isset($_POST["dateMes"]) || isset($_POST["dateDia"])){
+            }
+
             $fechaNacimiento = $_POST["dateAnio"] . "-" . $_POST["dateMes"] . "-" . $_POST["dateDia"];
 
             $datos = array(
@@ -253,6 +256,7 @@ class socios
             );
 
             $actualiza = mdlSocios::mdlActualizaSocio($datos);
+            //$actualiza= "ok";
 
             if ($actualiza == "ok") {
 
@@ -653,6 +657,7 @@ class socios
         $respuesta = mdlSocios::mdlLista("precios");
 
         foreach ($respuesta as $precio) {
+
             if ($precio["categoria"] == $tipoSocio)
                 echo '<option value="' . $precio['categoria'] . '" selected>' . $precio['categoria'] . '</option>';
             else

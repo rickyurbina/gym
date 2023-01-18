@@ -50,6 +50,7 @@
 
                     <div class="col-md-5">
                         <div class="form-group">
+                            <br>
                             <label class="form-label">Grupo</label>
                             <select class="form-control custom-select select2" name="nombreG">
                                 <?php
@@ -70,9 +71,10 @@
                             <label class="form-label" style="margin-left:1px">Fecha de Nacimiento</label>
                             <div class="row gutters-xs">
                                 <div class="col-md-4 col-sm-12">
+                                <label class="form-label">Día</label>
                                     <select name="dateDia" class="form-control">
 
-                                        <option value=""><?php echo date("d", $fecha); ?></option>
+                                        <option value="<?php echo date("d", $fecha); ?>"><?php echo date("d", $fecha); ?></option>
                                         <?php
                                         for ($x = 1; $x <= 31; $x++) {
                                             echo '<option value="' .  $x . '">' .  $x . '</option>';
@@ -81,8 +83,9 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4 col-sm-12">
+                                <label class="form-label">Mes</label>
                                     <select name="dateMes" class="form-control">
-                                        <option value=""><?php echo date("m", $fecha); ?></option>
+                                        <option value="<?php echo date("m", $fecha); ?>"><?php echo date("m", $fecha); ?></option>
                                         <?php
                                         for ($x = 1; $x <= 12; $x++) {
                                             echo '<option value="' .  $x . '">' .  $x . '</option>';
@@ -91,8 +94,9 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4 col-sm-12">
+                                <label class="form-label">Año</label>
                                     <select name="dateAnio" class="form-control">
-                                        <option value=""><?php echo date("Y", $fecha); ?></option>
+                                        <option value="<?php echo date("Y", $fecha); ?>"><?php echo date("Y", $fecha); ?></option>
                                         <?php
                                         $a = date("Y");
                                         for ($x = 0; $x <= 100; $x++) {
