@@ -70,7 +70,7 @@ setlocale(LC_ALL,"es_ES");
 		<link href="assets/plugins/datatable/dataTables.bootstrap4.min.css" rel="stylesheet" />
 		<link href="assets/plugins/datatable/jquery.dataTables.min.css" rel="stylesheet" />
 
-		<!-- <script src="assets/js/vendors/jquery-3.2.1.min.js"></script> -->
+		
 		<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 
 	</head>
@@ -185,7 +185,7 @@ setlocale(LC_ALL,"es_ES");
 
 
 		<!-- Dashboard Css -->
-		
+		<!-- <script src="assets/js/vendors/jquery-3.2.1.min.js"></script> -->
 		<script src="assets/plugins/bootstrap-4.3.1-dist/js/popper.min.js"></script>
 		<script src="assets/plugins/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 		<script src="assets/js/vendors/jquery.sparkline.min.js"></script>

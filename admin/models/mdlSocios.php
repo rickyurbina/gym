@@ -230,13 +230,10 @@ class mdlSocios {
         }
     }
     public static function mdlRegistrarMensualidad($idSocio, $mensualidad) {
-        $fecha = 'CURRENT_DATE()';
-        $statement = Conexion::conectar() -> prepare("INSERT INTO `pagos` VALUES (NULL, :idSocio, :mensualidad, :fecha) ");
+        $statement = Conexion::conectar() -> prepare("INSERT INTO `pagos` VALUES (NULL, :idSocio, :mensualidad, now()) ");
 
         $statement -> bindParam(":idSocio", $idSocio, PDO::PARAM_INT);
         $statement -> bindParam(":mensualidad", $mensualidad, PDO::PARAM_INT);
-        $statement -> bindParam(":fecha", $fecha, PDO::PARAM_STR);
-
 
         if ($statement -> execute()) {
             return "success";
