@@ -214,13 +214,50 @@ class VentasController {
     }
   }
 
+  public function ctrListaAdeudos() {
+    $respuesta = VentasModel::mdlListaAdeudos();
+
+    foreach ($respuesta as $venta) {
+
+      echo 
+      '<tr>
+        <td style="width:75px;">
+          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#abonar" data-username="'.$venta['nombres'] . ' ' . $venta['apellidos'].'" data-userid="'.$venta['idCliente'].'"><i class="fa fa-usd"></i></button>
+        </td>
+        <td>' . $venta['nombres'] . ' ' . $venta['apellidos'] . '</td>
+        <td>' . $this -> generarProductos($venta['productos']) . '</td>
+        <td>$' . $venta['total'] . '</td>
+        <td>$' . $venta['debe'] . '</td>
+      </tr>';
+    }
+  }
+
+  public function ctrAgregaAbono(){
+    $cantidad = $_POST['cantidad'];
+    if (!is_null($cantidad) || !empty($cantidad) || $cantidad > 0){
+
+      echo '<script>  
+            Swal.fire({
+                title: "Abono registrado",
+                text: "Se guardó el abono correctamente",
+                icon: "success",
+                showCancelButton: false,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Aceptar"
+              });
+            </script>';
+    }
+
+  }
+
   private function generarProductos($productos) {
     $productos = json_decode($productos, true);
 
     $string = '';
 
     foreach ($productos as $producto) {
-      $string .= $producto['nombreProducto'] . ' x '. $producto['cantidad'];
+      $string .= $producto['cantidad'].' '.$producto['nombreProducto'] . '<br>';
     }
     return $string;
   }

@@ -24,7 +24,7 @@
 				<div class="table-responsive">
 					<table id="example2" class="hover table-bordered border-top-0 border-bottom-0" style="text-align: center;">
 						<thead>
-							<td>Opciones</td>	
+							<td>Pagar</td>	
 							<td>Nombre</td>
 							<td>Dias</td>
 							<td>Contacto</td>

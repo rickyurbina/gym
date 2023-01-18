@@ -27,6 +27,19 @@ class VentasModel {
     return $statement -> fetchAll();
   }
 
+  public static function mdlListaAdeudos() {
+    $statement = Conexion::conectar() -> prepare("SELECT v.idCliente, v.productos, v.pago, v.total, v.debe, v.fecha, s.nombres, s.apellidos
+                                                  from ventas as v
+                                                  INNER JOIN socios as s
+                                                  on v.idCliente = s.idSocio
+                                                  WHERE v.debe > 0
+                                                  ORDER BY v.fecha DESC;");
+
+    $statement -> execute();
+
+    return $statement -> fetchAll();
+  }
+
   public static function mdlRepoVentaProductos(){
 
     $stmt = Conexion::conectar()->prepare("SELECT sum(`pago`) as cobrado, COUNT(`idVenta`) as pagos, sum(`debe`) as adeudo FROM `ventas` 
