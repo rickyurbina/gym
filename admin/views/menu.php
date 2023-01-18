@@ -31,7 +31,7 @@
 							<a class="side-menu__item <?php if ($pagina == 'userAdd' || $pagina == 'userList' ) echo 'active'; ?>" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-user"></i><span class="side-menu__label">Ventas</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
 								<li><a class="slide-item <?php if ($pagina == 'abonos') echo 'active'; ?>" href="index.php?page=abonos">Abonos</a></li>
-								<li><a class="slide-item <?php if ($pagina == 'venta') echo 'active'; ?>" href="index.php?page=venta">Registrar</a></li>
+								<li><a class="slide-item <?php if ($pagina == 'venta') echo 'active'; ?>" href="index.php?page=venta">Venta</a></li>
 								<li><a class="slide-item <?php if ($pagina == 'ventaList') echo 'active'; ?>" href="index.php?page=ventaList">Lista de ventas</a></li>
 							</ul>
 						</li>

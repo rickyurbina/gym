@@ -126,7 +126,7 @@ class socios
                 </div>
                 <div class="card-body ">
                     <h5 class="">Cobrado</h5>
-                    <h2 class="text-dark  mt-0 ">$ ' . $mensualidades["mensualidad"] . '</h2>
+                    <h2 class="text-dark  mt-0 ">$ ' . number_format($mensualidades["mensualidad"],2) . '</h2>
                     <div class="progress progress-sm mt-0 mb-2">
                         <div class="progress-bar bg-primary w-' . $porcentajeSocios . '" role="progressbar"></div>
                     </div>
