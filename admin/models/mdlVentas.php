@@ -19,6 +19,36 @@ class VentasModel {
     }
   }
 
+
+  # ------------------------------------------------------------------------------------
+  # Actualiza el campo `debe` en la tabla de ventas despues de registrar un abono
+  # ------------------------------------------------------------------------------------
+  public static function mdlUpdtVenta($datosAbono) {
+    $statement = Conexion::conectar() -> prepare("UPDATE `ventas` SET `debe`= `debe` - :cantidad WHERE `idVenta` = :idVenta;");
+
+    $statement -> bindParam(":idVenta", $datosAbono['idVenta'], PDO::PARAM_INT);
+    $statement -> bindParam(":cantidad", $datosAbono['cantidad'], PDO::PARAM_INT);
+
+    if ($statement -> execute()) {
+      return "success";
+    } else {
+      return "error";
+    }
+  }
+
+  public static function mdlAgregarAbono($datosAbono) {
+    $statement = Conexion::conectar() -> prepare("INSERT INTO abonos VALUES (null, :idVenta, :cantidad, now());");
+
+    $statement -> bindParam(":idVenta", $datosAbono['idVenta'], PDO::PARAM_INT);
+    $statement -> bindParam(":cantidad", $datosAbono['cantidad'], PDO::PARAM_INT);
+
+    if ($statement -> execute()) {
+      return "success";
+    } else {
+      return "error";
+    }
+  }
+
   public static function mdlListarVentas() {
     $statement = Conexion::conectar() -> prepare("SELECT * FROM ventas ORDER BY idVenta DESC;");
 
@@ -28,7 +58,7 @@ class VentasModel {
   }
 
   public static function mdlListaAdeudos() {
-    $statement = Conexion::conectar() -> prepare("SELECT v.idCliente, v.productos, v.pago, v.total, v.debe, v.fecha, s.nombres, s.apellidos
+    $statement = Conexion::conectar() -> prepare("SELECT v.idVenta, v.productos, v.pago, v.total, v.debe, v.fecha, s.nombres, s.apellidos
                                                   from ventas as v
                                                   INNER JOIN socios as s
                                                   on v.idCliente = s.idSocio

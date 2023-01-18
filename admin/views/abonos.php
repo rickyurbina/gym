@@ -46,11 +46,11 @@
                         <div class="form-group">
                             <label for="recipient-name" class="form-control-label">Cliente:</label>
                             <input type="text" class="form-control" id="user_name" value="">
-                            <input type="text" class="form-control" id="user_id" name="idCliente" value="" hidden>
+                            <input type="text" class="form-control" id="user_id" name="idVenta" value="" hidden>
                         </div>
                         <div class="form-group">
                             <label for="message-text" class="form-control-label">Cantidad:</label>
-                            <input type="text" class="form-control" id="cantidad" name="cantidad" value="0">
+                            <input type="text" class="form-control" id="cantidad" name="cantidad">
                         </div>
                         
                 </div>

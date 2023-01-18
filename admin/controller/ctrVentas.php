@@ -222,7 +222,7 @@ class VentasController {
       echo 
       '<tr>
         <td style="width:75px;">
-          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#abonar" data-username="'.$venta['nombres'] . ' ' . $venta['apellidos'].'" data-userid="'.$venta['idCliente'].'"><i class="fa fa-usd"></i></button>
+          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#abonar" data-username="'.$venta['nombres'] . ' ' . $venta['apellidos'].'" data-userid="'.$venta['idVenta'].'"><i class="fa fa-usd"></i></button>
         </td>
         <td>' . $venta['nombres'] . ' ' . $venta['apellidos'] . '</td>
         <td>' . $this -> generarProductos($venta['productos']) . '</td>
@@ -234,19 +234,47 @@ class VentasController {
 
   public function ctrAgregaAbono(){
     $cantidad = $_POST['cantidad'];
-    if (!is_null($cantidad) || !empty($cantidad) || $cantidad > 0){
+    $datosAbono = array(
+      "idVenta" => $_POST['idVenta'],
+      "cantidad" => $_POST['cantidad']
+    );
 
+    if (is_null($cantidad) || empty($cantidad) || $cantidad == 0 || $cantidad == ""){
       echo '<script>  
             Swal.fire({
-                title: "Abono registrado",
-                text: "Se guardó el abono correctamente",
-                icon: "success",
+                title: "Escriba una cantidad",
+                text: "para abonar a esta cuenta",
+                icon: "error",
                 showCancelButton: false,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
                 confirmButtonText: "Aceptar"
               });
             </script>';
+      }
+    else{
+      $abono = VentasModel::mdlAgregarAbono($datosAbono);
+
+      $updatVenta = VentasModel::mdlUpdtVenta($datosAbono);
+
+      if ($abono == "success"){
+
+      echo "<script>  
+            Swal.fire({
+                title: 'Abono registrado',
+                text: 'Se guardó el abono correctamente',
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location='index.php?page=abonos'
+                }
+              });
+            </script>";
+      }
     }
 
   }
