@@ -234,7 +234,6 @@ class socios
         }
     }
 
-
     public static function ctrActualiza()
     {
         if (isset($_POST["btnActualiza"])) {
@@ -336,6 +335,49 @@ class socios
         }
         if (isset($_POST["btnCancel"])) {
             echo '<script>window.location="index.php?page=precioList";</script>';
+        }
+    }
+
+    public static function ctrActualizaGrupo($idGrupo){
+        if(isset($_POST["btnActualiza"])){
+            
+            // $datos = array(
+            //     "id" => $_POST["id"],
+            //     "nombreG" => $_POST["nombreG"]
+            // );
+
+            $datos=$_POST["nombreG"];
+
+            $actualiza = mdlSocios::mdlActualizaGrupo($datos,$idGrupo);
+
+            if ($actualiza == "ok") {
+
+                echo "<script>Swal.fire({
+                    title: 'Actualizado!',
+                    text: 'La información se actualizó correctamente',
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location='index.php?page=grupoList'
+                    }
+                    })
+                    </script>";
+            } else {
+                echo "<script>Swal.fire({
+                    title: 'Error!',
+                    text: 'No se logró actualizar La información',
+                    icon: 'error',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location='index.php?page=grupoList'
+                    }
+                  })
+                  </script>";
+            }
         }
     }
 
@@ -534,6 +576,27 @@ class socios
               }).then((result) => {
                 if (result.isConfirmed) {
                     window.location="index.php?page=precioDel&idBorrar="+' . $_GET["idBorrar"] . '
+                }
+              })
+              </script>';
+        }
+    }
+
+    public static function ctrBorrarGrupo(){
+
+        if(isset($_GET["idBorrar"])){
+            echo '<script>  
+            Swal.fire({
+                title: "¿Está seguro?",
+                text: "¡Esto no se podrá recuperar!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "¡Si, borrar!"
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location="index.php?page=grupoDel&idBorrar="+' . $_GET["idBorrar"] . '
                 }
               })
               </script>';

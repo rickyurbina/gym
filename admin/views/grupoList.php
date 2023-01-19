@@ -23,7 +23,8 @@
 						<?php
 							$lista = new socios();
 							$lista -> ctrListaGrupos();
-							$lista -> ctrBorrarPrecio();
+							$lista = new socios();
+							$lista -> ctrBorrarGrupo();
 						?>
 						
 					</tbody>

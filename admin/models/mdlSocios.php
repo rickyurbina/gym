@@ -164,6 +164,44 @@ class mdlSocios {
 		return $stmt -> fetch();
     }
 
+    public static function mdlBuscaGrupo($grupo){
+
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM `grupos` WHERE id=:id");
+
+        $stmt->bindParam(":id", $grupo, PDO::PARAM_INT);
+
+        $stmt -> execute();
+        return $stmt -> fetch();
+
+    }
+
+    public static function mdlActualizaGrupo($datos,$idGrupo){
+
+        $stmt = Conexion::conectar()->prepare("UPDATE `grupos` SET `nombreG`=:nombreG WHERE `id`=$idGrupo");
+
+        
+        $stmt -> bindParam(":nombreG", $datos, PDO::PARAM_STR);
+
+        if ($stmt -> execute()){
+            return "ok";
+        }
+        else {
+            return "error";
+        }
+    }
+
+    public static function mdlBorrarGrupo($idGrupo){
+
+        $stmt = Conexion::conectar()->prepare("DELETE FROM `grupos` WHERE `id`=$idGrupo");
+
+        if ($stmt->execute()){
+			return "success";
+		} else {
+			return "error";
+		}
+
+    }
+
     public static function mdlBuscaPrecio($usuario){
 
 		$stmt = Conexion::conectar()->prepare("SELECT p.costo
