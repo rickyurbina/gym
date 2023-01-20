@@ -104,17 +104,22 @@ class socios
         # ----------------------------------------------
 
         $pagados = $mensualidades["socios"];
-        $totalSocios = $mensualidades["totalSocios"];
+        // $totalSocios = $mensualidades["totalSocios"];
+        $totalSocios=18;
 
-        $porcentajeSocios = ($pagados / $totalSocios) * 100;
-        
+        $porcentajeSocios = intval(($pagados / $totalSocios) * 100); //Redondea 
+
+
         $compara = $porcentajeSocios % 5;
-
+       
+        echo $compara;
+        
         while ($compara != 0) {
             $pagados++;
-            $porcentajeSocios = ($pagados / $totalSocios) * 100;
+            $porcentajeSocios = intval(($pagados / $totalSocios) * 100);
             $compara = $porcentajeSocios % 5;
         }
+        
         
 
         echo '
