@@ -4,40 +4,55 @@ Class usuarios {
     public static function ctrRegistra(){
         if(isset($_POST["email"])){
 
-            // echo $_POST["nickName"]."<br>";
-            // echo $_POST["email"]."<br>";
-            // echo $_POST["nombres"]."<br>";
-            // echo $_POST["apellidos"]."<br>";
-            // echo $_POST["telefono"]."<br>";
-            // echo $_POST["permisos"]."<br>";
+            $eliminar = array("(", ")", "-", " ");
+            $telefono = str_replace($eliminar, "", $_POST["telefono"]);
 
+            $fechaNac = $_POST["dateAnio"] . "-" . $_POST["dateMes"] . "-" . $_POST["dateDia"];
+            $estado =  (isset($_POST["estado"])) ? "1" : "0";
+            $registrado = mdlUsuarios::mdlBuscaEmail($_POST["email"], "usuarios");
 
-            $datos = array("email" => $_POST["email"],
-                           "nickName" => $_POST["nickName"],
+            if (is_null($registrado) || $registrado != 'false' ){
+                $datos = array("email" => $_POST["email"],
+                           "fechaNac" => $fechaNac,
                            "nombres" => $_POST["nombres"],
                            "apellidos" => $_POST["apellidos"],
-                           "telefono" => $_POST["telefono"],
+                           "telefono" => $telefono,
                            "permisos" => $_POST["permisos"],
-                           "password" => $_POST["password"]);
+                           "estado" => $estado,
+                           "password" => password_hash($_POST["password"], PASSWORD_DEFAULT));
 
-            $ingresa = mdlUsuarios::mdlRegistraUsuario($datos);
+                $ingresa = mdlUsuarios::mdlRegistraUsuario($datos);
 
-            if ($ingresa == "ok"){
+                if ($ingresa == "ok"){
 
-                    echo "<script>Swal.fire({
-                        title: 'Registro Exitoso',
-                        text: 'El nuevo usuario ha sio registrado',
-                        icon: 'success',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Ok'
-                      }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location='index.php?page=userList'
-                        }
-                      })
-                      </script>";
+                        echo "<script>Swal.fire({
+                            title: 'Registro Exitoso',
+                            text: 'El nuevo usuario ha sio registrado',
+                            icon: 'success',
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Ok'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location='index.php?page=userList'
+                            }
+                        })
+                        </script>";
+                }
             }
-            
+            else{
+                echo "<script>Swal.fire({
+                    title: 'Usuario ya existe',
+                    text: 'la direccion de email ya esta registrada',
+                    icon: 'danger',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location='index.php?page=vUserAdd'
+                    }
+                  })
+                  </script>";
+            }
             
         }
     }
@@ -45,23 +60,26 @@ Class usuarios {
 
     public static function ctrActualiza(){
         if(isset($_POST["btnActualiza"])){
+            $fechaNac=$_POST["dateAnio"]."-".$_POST["dateMes"]."-".$_POST["dateDia"];
+            $estado =  (isset($_POST["estado"])) ? "1" : "0";
 
-            // echo $_POST["nickName"]."<br>";
-            // echo $_POST["email"]."<br>";
-            // echo $_POST["nombres"]."<br>";
-            // echo $_POST["apellidos"]."<br>";
-            // echo $_POST["telefono"]."<br>";
-            // echo $_POST["permisos"]."<br>";
-
+            if ($_POST["password"] != "")
+            {
+                $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+            }
+            else{
+                $password = $_POST["pswd"];
+            }
 
             $datos = array("userId" => $_POST["userId"],
                            "email" => $_POST["email"],
-                           "nickName" => $_POST["nickName"],
+                           "fechaNac" => $fechaNac,
+                           "estado" => $estado,
                            "nombres" => $_POST["nombres"],
                            "apellidos" => $_POST["apellidos"],
                            "telefono" => $_POST["telefono"],
                            "permisos" => $_POST["permisos"],
-                           "password" => $_POST["password"]);
+                           "password" => $password);
 
             $actualiza = mdlUsuarios::mdlActualizaUsuario($datos);
 
@@ -96,8 +114,8 @@ Class usuarios {
             }
             
         }
-        if (isset($_POST["btnCancel"])) {
-            echo '<script>window.location="index.php?page=userList";</script>';
+        if (isset($_POST["btnCancel"])){
+            echo '<script>window.location="index.php?page=vUserList";</script>';
         }
     }
 

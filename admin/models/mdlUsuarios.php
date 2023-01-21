@@ -9,16 +9,16 @@ class mdlUsuarios {
     
     public static function mdlRegistraUsuario($datos){
 
-        $stmt = Conexion::conectar()->prepare("INSERT INTO `usuarios` (`id`, `nombres`, `apellidos`, `nickName`, `email`, `telefono`, `permisos`, `password`) 
-        VALUES (NULL, :nombres, :apellidos, :nickName, :email, :telefono, :permisos, :pass);");
-
-
+        $stmt = Conexion::conectar()->prepare("INSERT INTO `usuarios` (`id`, `nombres`, `apellidos`, `fechaNac`, `email`, `telefono`, `permisos`, `password`, `estado`) 
+        VALUES (NULL, :nombres, :apellidos, :fechaNac, :email, :telefono, :permisos, :pass, :estado);");
+		
          $stmt -> bindParam(":nombres", $datos["nombres"], PDO::PARAM_STR);
          $stmt -> bindParam(":apellidos", $datos["apellidos"], PDO::PARAM_STR);
-         $stmt -> bindParam(":nickName", $datos["nickName"], PDO::PARAM_STR);
          $stmt -> bindParam(":email", $datos["email"], PDO::PARAM_STR);
          $stmt -> bindParam(":telefono", $datos["telefono"], PDO::PARAM_STR);
          $stmt -> bindParam(":permisos", $datos["permisos"], PDO::PARAM_STR);
+         $stmt -> bindParam(":estado", $datos["estado"], PDO::PARAM_STR);
+         $stmt -> bindParam(":fechaNac", $datos["fechaNac"], PDO::PARAM_STR);
          $stmt -> bindParam(":pass", $datos["password"], PDO::PARAM_STR);
          
         if ($stmt -> execute()){
@@ -29,19 +29,36 @@ class mdlUsuarios {
         }
     }
 
+    	#BUSCA UN USUARIO POR EMAIL
+	#-------------------------------------
 
-	#       Actualiza la informacion de un usuario a la BD
+	public static function mdlBuscaEmail($email, $tabla){
+
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE email = :email");
+
+		$stmt->bindParam(":email", $email, PDO::PARAM_STR);
+
+		$stmt -> execute();
+
+		return $stmt -> fetch();
+
+		//$stmt->close();
+	}
+
+
+    #       Actualiza la informacion de un usuario a la BD
     # ----------------------------------------------------------
     
     public static function mdlActualizaUsuario($datos){
 
-        $stmt = Conexion::conectar()->prepare("UPDATE `usuarios` SET `nombres`=:nombres,`apellidos`=:apellidos, `nickName`=:nickName,
+        $stmt = Conexion::conectar()->prepare("UPDATE `usuarios` SET `nombres`=:nombres,`apellidos`=:apellidos, `fechaNac` =:fechaNac, `estado`=:estado, 
 		`telefono`=:telefono, `email`=:email, `password`=:pass, `permisos`=:permisos WHERE id = :userId;");
 
 		$stmt -> bindParam(":userId", $datos["userId"], PDO::PARAM_INT);
         $stmt -> bindParam(":nombres", $datos["nombres"], PDO::PARAM_STR);
         $stmt -> bindParam(":apellidos", $datos["apellidos"], PDO::PARAM_STR);
-        $stmt -> bindParam(":nickName", $datos["nickName"], PDO::PARAM_STR);
+        $stmt -> bindParam(":fechaNac", $datos["fechaNac"], PDO::PARAM_STR);
+        $stmt -> bindParam(":estado", $datos["estado"], PDO::PARAM_STR);
         $stmt -> bindParam(":email", $datos["email"], PDO::PARAM_STR);
         $stmt -> bindParam(":telefono", $datos["telefono"], PDO::PARAM_STR);
         $stmt -> bindParam(":permisos", $datos["permisos"], PDO::PARAM_STR);

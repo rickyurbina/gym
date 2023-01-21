@@ -1,14 +1,11 @@
 <div class="page-header">
-    <h4 class="page-title">Registro de Usuario</h4>
-    <div class="card-options">
+    <div class="card-options" style="margin-right: 100px;">
 
         <a class="btn btn-cyan text-gray-dark btn-lg mb-1" href="index.php?page=inicio"><i class="zmdi zmdi-home" style="color:white" title="Volver a Inicio" data-toggle="tooltip"></i></a>&nbsp
 
-        <a class="btn btn-cyan btn-lg mb-1" href="index.php?page=socioAdd"><i class="fa fa-user-circle-o" data-toggle="tooltip" title="Agregar Nuevo Socio" data-original-title="fa fa-user-plus"></i></a>&nbsp
+        <a class="btn btn-cyan btn-lg mb-1" href="index.php?page=vPacienteAdd"><i class="fa fa-user-plus" data-toggle="tooltip" title="Agregar Nuevo Paciente" data-original-title="fa fa-user-plus"></i></a>&nbsp
 
-        <a class="btn btn-cyan btn-lg mb-1" href="index.php?page=abonos"><i class="fa fa-pencil" data-toggle="tooltip" title="Abonar" data-original-title="fa fa-user-plus"></i></a>&nbsp
-
-        <a class="btn btn-cyan text-gray-dark btn-lg mb-1" href="index.php?page=venta"><i class="fa fa-dollar" style="color:white" title="Nueva Venta" data-toggle="tooltip"></i></a>
+        <a class="btn btn-cyan text-gray-dark btn-lg mb-1" href="index.php?page=vNuevaCita"><i class="fa fa-calendar-plus-o" style="color:white" title="Agendar Nueva Cita" data-toggle="tooltip"></i></a>
 
     </div>
 </div>
@@ -21,75 +18,107 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <label class="form-label">Nombre Corto</label>
-                            <input type="text" class="form-control" name="nickName" placeholder="Sobrenombre" >
-                        </div>
-                    </div>
-                    <!-- <div class="col-sm-6 col-md-3">
-                        <div class="form-group">
-                            <label class="form-label">Usuario</label>
-                            <input type="text" class="form-control" placeholder="usuario" >
-                        </div>
-                    </div> -->
-                    <div class="col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-control" name="email" placeholder="Email" >
-                        </div>
-                    </div>
+                    
                     <div class="col-sm-5 col-md-5">
                         <div class="form-group">
                             <label class="form-label">Nombres</label>
-                            <input type="text" class="form-control" name="nombres" placeholder="Juan" >
+                            <input type="text" class="form-control" name="nombres" placeholder="Juan" required>
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-6">
                         <div class="form-group">
                             <label class="form-label">Apellidos</label>
-                            <input type="text" class="form-control" name="apellidos" placeholder="Perez García" >
+                            <input type="text" class="form-control" name="apellidos" placeholder="Perez García" required>
                         </div>
                     </div>
-                    <!-- <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="form-label">Address</label>
-                            <input type="text" class="form-control" placeholder="Home Address" >
+                    
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group m-0">
+                            <label class="form-label" style="margin-left:1px">Fecha de Nacimiento</label>
+                            <div class="row gutters-xs">
+                                <div class="col-md-4 col-sm-12">
+                                    <select name="dateDia" class="form-control" >
+                                        <option value="">Día</option>
+                                        <?php
+                                        for ($x = 1; $x <= 31; $x++) {
+                                            echo '<option value="' .  $x . '">' .  $x . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <select name="dateMes" class="form-control">
+                                        <option value="">Mes</option>
+                                        <?php
+                                        for ($x = 1; $x <= 12; $x++) {
+                                            echo '<option value="' .  $x . '">' .  $x . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <select name="dateAnio" class="form-control">
+                                        <option value="">Año</option>
+                                        <?php
+                                        $a = date("Y");
+                                        for ($x = 0; $x <= 100; $x++) {
+                                            echo '<option value="' . $a - $x . '">' . $a - $x . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </div> -->
-                    <div class="col-sm-6 col-md-5">
+                    </div>
+
+                    <div class="col-sm-6 col-md-4">
                         <div class="form-group">
                             <label class="form-label">Teléfono</label>
                             <input type="text" class="form-control" name="telefono" placeholder="6141234455" >
                         </div>
                     </div>
-                    <!-- <div class="col-sm-6 col-md-3">
-                        <div class="form-group">
-                            <label class="form-label">Postal Code</label>
-                            <input type="number" class="form-control" placeholder="ZIP Code">
-                        </div>
-                    </div> -->
-                    <div class="col-md-6">
+                    <div class="col-sm-6 col-md-4">
                         <div class="form-group">
                             <label class="form-label">Permisos en el sistema</label>
                             <select class="form-control custom-select select2" name="permisos" >
-                                <option value="usuario">Usuario</option>
-                                <option value="administrador">Administrador</option>
-                                
+                                <option value="user">Usuario</option>
+                                <option value="admin">Administrador</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" placeholder="Email" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
                         <div class="form-group">
                             <label class="form-label">Password</label>
-                            <input type="password" name="password" class="form-control" id="password"  />
+                            <input type="password" name="password" class="form-control" id="password" required  />
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-6 col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Costo Consulta $</label>
+                            <input type="text" name="costoConsulta" placeholder="Sólo si es médico" class="form-control"/>
+                        </div>
+                    </div> -->
+                    <div class="col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <div class="form-label">Activar Usuario</div>
+                            <label class="custom-switch">
+                                <input type="checkbox" name="estado" class="custom-switch-input" value="1">
+                                <span class="custom-switch-indicator"></span>
+                                <span class="custom-switch-description">Acceso al sistema</span>
+                            </label>
                         </div>
                     </div>
 
                 </div>
             </div>
             <div class="card-footer text-right">
-                <button type="submit" id="login" class="btn btn-primary">Registrar</button>
+                <button type="submit" name="btnRegistrar" id="login" class="btn btn-primary">Registrar</button>
             </div>
             <?php
                 $registro = new usuarios();

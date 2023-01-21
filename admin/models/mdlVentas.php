@@ -24,7 +24,7 @@ class VentasModel {
   # Actualiza el campo `debe` en la tabla de ventas despues de registrar un abono
   # ------------------------------------------------------------------------------------
   public static function mdlUpdtVenta($datosAbono) {
-    $statement = Conexion::conectar() -> prepare("UPDATE `ventas` SET `debe`= `debe` - :cantidad WHERE `idVenta` = :idVenta;");
+    $statement = Conexion::conectar() -> prepare("UPDATE `ventas` SET `debe`= `debe` - :cantidad, `pago` = `pago`+:cantidad WHERE `idVenta` = :idVenta;");
 
     $statement -> bindParam(":idVenta", $datosAbono['idVenta'], PDO::PARAM_INT);
     $statement -> bindParam(":cantidad", $datosAbono['cantidad'], PDO::PARAM_INT);
