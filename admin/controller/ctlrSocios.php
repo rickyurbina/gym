@@ -104,8 +104,7 @@ class socios
         # ----------------------------------------------
 
         $pagados = $mensualidades["socios"];
-        // $totalSocios = $mensualidades["totalSocios"];
-        $totalSocios=18;
+        $totalSocios = $mensualidades["totalSocios"];
 
         $porcentajeSocios = intval(($pagados / $totalSocios) * 100); //Redondea 
 
