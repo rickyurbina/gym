@@ -109,9 +109,7 @@ class socios
         $porcentajeSocios = intval(($pagados / $totalSocios) * 100); //Redondea 
 
 
-        $compara = $porcentajeSocios % 5;
-       
-        echo $compara;
+        $compara = $porcentajeSocios % 5;       
         
         while ($compara != 0) {
             $pagados++;
