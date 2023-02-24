@@ -654,21 +654,60 @@ class socios
 
 
             if ($ultimo_pago === "success" && $mensualidad === "success") {
-                echo '<script>  
-                Swal.fire({
-                    title: "Pago Registrado",
-                    text: "La mensualidad fue registrada exitosamente",
-                    icon: "success",
-                    showCancelButton: false,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Aceptar"
-                  }).then((result) => {
+                $mens = "Mensualidad de Marzo";
+                $alumno = "Ricardo Urbina";
+                $costoMens = "400";
+
+                echo "<script>
+                    const html = `
+                        <div class=\"row\">
+                        <div class=\"col text-center\">
+                            <img src=\"http://rifaslosprimos.com/images/logoSmall.png\" class=\"img-modal\">
+                        </div>
+                        </div>
+                        <div class=\"row mt-4\">
+                        <div class=\"col\">
+                            <h3>Pago de Mensualidad!</h3>
+                            <p>Gracias por su pago!</p>
+                            <h2>" . $mens . "</h2>
+                            <br>
+                            <hr style=\"width: 75% background-color: #7E9680\">
+                            <h3><span style=\"color: #7E9680\"><b>" . $alumno . "</b></span></h3>
+                            <p>Oportunidades:<br>
+                            <span style=\"color: #7E9680\"><b>"; 
+
+                            echo "</b></span><br>
+                            Total: <b>$<span>" . $costoMens . "</span></b><br>
+                            <hr style=\"width: 75% background-color: #7E9680\"><br>
+                            
+                        </div> 
+                        </div>`;
+
+
+                        Swal.fire({
+                        html: html,
+                        confirmButtonText: 'Cerrar',
+                        confirmButtonColor: '#7E9680'
+                        }).then((value) => {
+                        window.location.href = 'index.php?page=inicio';
+                        });
+                    </script>";
+                //  Script Anterior
+                // echo '<script>  
+                // Swal.fire({
+                //     title: "Pago Registrado",
+                //     text: "La mensualidad fue registrada exitosamente",
+                //     icon: "success",
+                //     showCancelButton: false,
+                //     confirmButtonColor: "#3085d6",
+                //     cancelButtonColor: "#d33",
+                //     confirmButtonText: "Aceptar"
+                //   }).then((result) => {
                   
-                        window.location.href = "index.php?page=inicio";
+                //         window.location.href = "index.php?page=inicio";
                     
-                  })
-                  </script>';
+                //   })
+                //   </script>';
             } else {
                 echo '<script>  
                 Swal.fire({
